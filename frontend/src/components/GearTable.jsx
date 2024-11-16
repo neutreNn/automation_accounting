@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { 
@@ -9,7 +9,8 @@ import {
   TableCell as MuiTableCell, 
   TableContainer as MuiTableContainer, 
   TableRow as MuiTableRow, 
-  IconButton as MuiIconButton
+  IconButton as MuiIconButton, 
+  TablePagination as MuiTablePagination,
 } from '@mui/material';
 
 import { Delete, MoreHoriz } from '@mui/icons-material';
@@ -27,6 +28,21 @@ const IconButton = styled(MuiIconButton)`
     color: white;
   }
 `;
+
+const TablePagination = styled(MuiTablePagination)`
+  color: white !important;
+  font-weight: bold;
+  background-color: #161b22;
+
+  .MuiTablePagination-actions .Mui-disabled {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .MuiTablePagination-selectIcon {
+    color: #fff;
+  }
+`;
+
 
 const TableContainer = styled(MuiTableContainer)`
   margin: 20px auto;
@@ -79,51 +95,80 @@ const StatusLine = styled.div`
 const GearTable = () => {
   const { data: gears, isLoading, isError } = useGetAllGearsQuery();
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   if (isLoading) return <p>Загрузка...</p>;
   if (isError) return <p>Ошибка загрузки данных</p>;
 
   const isRecentDate = (date) => new Date(date) >= new Date('2024-10-15');
 
+  const paginatedGears = gears.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <StyledTableHeaderCell>Статус</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Название</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Категория</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Серийный номер</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Дата выдачи</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Цена (₽)</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Поставщик</StyledTableHeaderCell>
-            <StyledTableHeaderCell>Действия</StyledTableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {gears.map((gear) => (
-            <TableRow key={gear._id}>
-              <StyledTableCell>
-                <StatusLine isRecent={isRecentDate(gear.date_of_issue)} />
-              </StyledTableCell>
-              <StyledTableCell>{gear.name}</StyledTableCell>
-              <StyledTableCell>{gear.category}</StyledTableCell>
-              <StyledTableCell>{gear.serial_number}</StyledTableCell>
-              <StyledTableCell>{gear.date_of_issue}</StyledTableCell>
-              <StyledTableCell>{gear.price}</StyledTableCell>
-              <StyledTableCell>{gear.supplier}</StyledTableCell>
-              <StyledTableCell>
-                <IconButton>
-                  <MoreHoriz />
-                </IconButton>
-                <IconButton style={{ marginLeft: '8px' }}>
-                  <Delete />
-                </IconButton>
-              </StyledTableCell>
+    <>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <StyledTableHeaderCell>Статус</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Название</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Категория</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Серийный номер</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Дата выдачи</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Цена (₽)</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Поставщик</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Действия</StyledTableHeaderCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {paginatedGears.map((gear) => (
+              <TableRow key={gear._id}>
+                <StyledTableCell>
+                  <StatusLine isRecent={isRecentDate(gear.date_of_issue)} />
+                </StyledTableCell>
+                <StyledTableCell>{gear.name}</StyledTableCell>
+                <StyledTableCell>{gear.category}</StyledTableCell>
+                <StyledTableCell>{gear.serial_number}</StyledTableCell>
+                <StyledTableCell>{gear.date_of_issue}</StyledTableCell>
+                <StyledTableCell>{gear.price}</StyledTableCell>
+                <StyledTableCell>{gear.supplier}</StyledTableCell>
+                <StyledTableCell>
+                  <IconButton>
+                    <MoreHoriz />
+                  </IconButton>
+                  <IconButton style={{ marginLeft: '8px' }}>
+                    <Delete />
+                  </IconButton>
+                </StyledTableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TablePagination
+          component="div"
+          count={gears.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 20]}
+          labelRowsPerPage="Строк на странице:"
+        />
+      </TableContainer>
+    </>
   );
 };
 
