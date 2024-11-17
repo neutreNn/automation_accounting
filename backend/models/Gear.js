@@ -13,21 +13,21 @@ const GearSchema = new mongoose.Schema(
         serial_number: {
             type: String,
             required: true,
+        },
+        inventory_number: {
+            type: String,
+            required: true,
             unique: true,
         },
-        date_of_issue: {
+        year_of_release: {
             type: String,
             required: true,
         },
-        created_date: {
+        year_of_input: {
             type: String,
             required: true,
         },
-        purchase_date: {
-            type: String,
-            required: true,
-        },
-        warranty_expiration: {
+        year_of_output: {
             type: String,
             required: true,
         },
@@ -40,12 +40,15 @@ const GearSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        location: {
+            type: String,
+            required: true,
+        },
         history: {
             type: Array,
             required: true,
             default: [],
         },
-        barcodeUrl: String,
     },
 );
 

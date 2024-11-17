@@ -16,12 +16,13 @@ export const gearCreateValidation = [
     body('name', 'Введите название инвентаря').isLength({ min: 3 }).isString(),
     body('category', 'Введите категорию').isString(),
     body('serial_number', 'Введите серийный номер').isLength({ min: 5 }).isString(),
-    body('date_of_issue', 'Введите дату выдачи').isString(),
-    body('created_date', 'Введите дату производства').isString(),
-    body('purchase_date', 'Введите дату покупки').isString(),
-    body('warranty_expiration', 'Введите срок действия гарантии').isString(),
+    body('inventory_number', 'Введите инвентарный номер').isString(),
+
+    body('year_of_release', 'Введите год выпуска').isString(),
+    body('year_of_input', 'Введите год ввода').isString(),
+    body('year_of_output', 'Введите год списания').isString(),
     body('price', 'Введите цену инвентаря').isNumeric(),
     body('supplier', 'Введите производителя инвентаря').isString(),
+    body('location', 'Введите метонахождение').isString(),
     body('history', 'Введите историю владения').isArray(),
-    body('barcodeUrl', 'Предоставьте ссылку на штрихкод').isString(),
 ];
