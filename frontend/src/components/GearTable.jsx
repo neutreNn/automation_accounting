@@ -16,6 +16,7 @@ import {
 import { Delete, MoreHoriz } from '@mui/icons-material';
 
 import { useGetAllGearsQuery } from '../api/apiGear';
+import CircleLoader from './CircleLoader';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -107,7 +108,7 @@ const GearTable = () => {
     setPage(0);
   };
 
-  if (isLoading) return <p>Загрузка...</p>;
+  if (isLoading) return <CircleLoader />;
   if (isError) return <p>Ошибка загрузки данных</p>;
 
   const isRecentDate = (date) => new Date(date) >= new Date('2024-10-15');
