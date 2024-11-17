@@ -45,7 +45,6 @@ const TablePagination = styled(MuiTablePagination)`
   }
 `;
 
-
 const TableContainer = styled(MuiTableContainer)`
   margin: 20px auto;
   max-width: 1200px;
@@ -112,7 +111,11 @@ const GearTable = () => {
   if (isLoading) return <CircleLoader />;
   if (isError) return <ErrorMessage />;
 
-  const isRecentDate = (date) => new Date(date) >= new Date('2024-10-15');
+  const isRecentDate = (date) => {
+    const currentYear = new Date().getFullYear();
+    const yearOfOutput = new Date(date).getFullYear();
+    return currentYear <= yearOfOutput;
+  };
 
   const paginatedGears = gears.slice(
     page * rowsPerPage,
@@ -129,7 +132,7 @@ const GearTable = () => {
               <StyledTableHeaderCell>Название</StyledTableHeaderCell>
               <StyledTableHeaderCell>Категория</StyledTableHeaderCell>
               <StyledTableHeaderCell>Серийный номер</StyledTableHeaderCell>
-              <StyledTableHeaderCell>Дата выдачи</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Инвентарный номер</StyledTableHeaderCell>
               <StyledTableHeaderCell>Цена (₽)</StyledTableHeaderCell>
               <StyledTableHeaderCell>Поставщик</StyledTableHeaderCell>
               <StyledTableHeaderCell>Действия</StyledTableHeaderCell>
@@ -139,12 +142,12 @@ const GearTable = () => {
             {paginatedGears.map((gear) => (
               <TableRow key={gear._id}>
                 <StyledTableCell>
-                  <StatusLine isRecent={isRecentDate(gear.date_of_issue)} />
+                  <StatusLine isRecent={isRecentDate(gear.year_of_output)} />
                 </StyledTableCell>
                 <StyledTableCell>{gear.name}</StyledTableCell>
                 <StyledTableCell>{gear.category}</StyledTableCell>
                 <StyledTableCell>{gear.serial_number}</StyledTableCell>
-                <StyledTableCell>{gear.date_of_issue}</StyledTableCell>
+                <StyledTableCell>{gear.inventory_number}</StyledTableCell>
                 <StyledTableCell>{gear.price}</StyledTableCell>
                 <StyledTableCell>{gear.supplier}</StyledTableCell>
                 <StyledTableCell>
