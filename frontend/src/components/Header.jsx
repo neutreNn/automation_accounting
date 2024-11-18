@@ -1,7 +1,11 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
+import MuiLogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from '@mui/icons-material/Add';
+import { Modal } from '@mui/material';
+import AddGear from './AddGear';
+import CustomButton from './CustomButton';
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -50,49 +54,54 @@ const NavLink = styled(RouterLink)`
   }
 `;
 
-const ExitButton = styled.div`
-  background: transparent;
+const LogoutIcon = styled(MuiLogoutIcon)`
   color: #fff;
-  padding: 8px;
-  border: 1px solid #fff;
-  border-radius: 12px; /* Добавлено скругление углов */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 25px;
-  width: 25px;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 0.8; /* Убираем сдвиг, только уменьшаем прозрачность */
-  }
 `;
 
-const StyledLogoutIcon = styled(LogoutIcon)`
-  color: #fff;
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 
 function Header() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
-    <HeaderContainer>
-      <HeaderWrapper>
-        <LogoContainer>
-          <LogoImage src="/logo.png" alt="Логотип" />
-          <LogoText>circle.ru</LogoText>
-        </LogoContainer>
+    <>
+      <HeaderContainer>
+        <HeaderWrapper>
+          <LogoContainer>
+            <LogoImage src="/logo.png" alt="Логотип" />
+            <LogoText>circle.ru</LogoText>
+          </LogoContainer>
 
-        <Nav>
-          <NavLink to="/">Главная</NavLink>
-          <NavLink to="/statistics">Статистика</NavLink>
-          <NavLink to="/logs">Логи</NavLink>
-        </Nav>
+          <Nav>
+            <NavLink to="/">Главная</NavLink>
+            <NavLink to="/statistics">Статистика</NavLink>
+            <NavLink to="/logs">Логи</NavLink>
+          </Nav>
 
-        <ExitButton aria-label="Выход">
-          <StyledLogoutIcon />
-        </ExitButton>
-      </HeaderWrapper>
-    </HeaderContainer>
+          <ButtonsContainer>
+            <CustomButton onClick={handleOpen}>
+              <AddIcon />
+            </CustomButton>
+            <CustomButton>
+              <LogoutIcon />
+            </CustomButton>
+          </ButtonsContainer>
+        </HeaderWrapper>
+      </HeaderContainer>
+      <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+        <AddGear handleClose={handleClose}/>
+      </Modal>
+    </>
   );
 }
 
