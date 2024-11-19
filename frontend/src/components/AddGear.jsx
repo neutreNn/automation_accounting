@@ -6,6 +6,7 @@ import StyledTextField from './StyledTextField';
 import CustomButton from './CustomButton';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import StyledSelectField from './StyledSelectField';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -59,6 +60,15 @@ const ButtonSectionWrapper = styled.div`
 function AddGear({handleClose}) {
   const methods = useForm();
 
+  let options=[
+    { value: 'Связь', label: 'Связь' },
+    { value: 'Безопасность', label: 'Безопасность' },
+    { value: 'Спецодежда', label: 'Спецодежда' },
+    { value: 'Инструменты', label: 'Инструменты' },
+    { value: 'Освещение', label: 'Освещение' },
+    { value: 'Складское оборудование', label: 'Складское оборудование' },
+  ];
+
   return (
     <FormContainer maxWidth="sm">
       <Typography variant="h5" component="h1" color="white" gutterBottom>
@@ -76,10 +86,11 @@ function AddGear({handleClose}) {
               label="Название"
               requiredText="Наименование должно быть заполнено"
             />
-            <StyledTextField
+            <StyledSelectField
               name="category"
               label="Категория"
               requiredText="Категория должна быть выбрана"
+              options={options}
             />
 
             <Row>
@@ -104,25 +115,27 @@ function AddGear({handleClose}) {
               <StyledTextField
                 name="year_of_input"
                 label="Год ввода"
-                requiredText="Год ввода в эксплуатацию должен быть указан"
+                requiredText="Год ввода должен быть указан"
               />
               <StyledTextField
                 name="year_of_output"
                 label="Год вывода"
-                requiredText="Год вывода из эксплуатации должен быть указан"
+                requiredText="Год вывода должен быть указан"
               />
             </Row>
 
-            <StyledTextField
-              name="price"
-              label="Цена"
-              requiredText="Цена должна быть указана"
-            />
-            <StyledTextField
-              name="supplier"
-              label="Поставщик"
-              requiredText="Поставщик должен быть указан"
-            />
+            <Row>
+              <StyledTextField
+                name="price"
+                label="Цена"
+                requiredText="Цена должна быть указана"
+              />
+              <StyledTextField
+                name="supplier"
+                label="Поставщик"
+                requiredText="Поставщик должен быть указан"
+              />
+            </Row>
             <StyledTextField
               name="location"
               label="Расположение"
