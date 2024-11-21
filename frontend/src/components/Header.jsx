@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Modal } from '@mui/material';
 import AddGear from './AddGear';
 import CustomButton from './CustomButton';
+import { useSnackbar } from 'notistack';
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -68,6 +69,11 @@ function Header() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSnackbar = (message, variant) => {
+    enqueueSnackbar(message, { variant });
+  };
+
   return (
     <>
       <HeaderContainer>
@@ -99,7 +105,7 @@ function Header() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-        <AddGear handleClose={handleClose}/>
+        <AddGear handleClose={handleClose} handleSnackbar={handleSnackbar} />
       </Modal>
     </>
   );

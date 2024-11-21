@@ -58,18 +58,19 @@ const ButtonSectionWrapper = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-function AddGear({handleClose}) {
+function AddGear({handleClose, handleSnackbar}) {
   const methods = useForm();
   const [createGear] = useCreateGearMutation();
 
   const handleSubmit = (formData) => {
     createGear(formData)
       .unwrap()
-      .then((response) => {
-        console.log('Инвентарь добавлен:', response);
+      .then(() => {
+        handleSnackbar("Инвентарь добавлен", "success");
         handleClose();
       })
       .catch((err) => {
+        handleSnackbar("Не удалось добавить инвентарь", "error");
         console.error('Ошибка запроса:', err);
       });
   };

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import GearTable from './components/GearTable';
 import styled from 'styled-components';
+import { SnackbarProvider } from 'notistack'
 
 const AppContainer = styled.div`
   display: flex;
@@ -17,19 +18,21 @@ const MainContent = styled.main`
 
 function App() {
   return (
-    <Router>
-      <AppContainer>
-        <Header />
-        <MainContent>
-          <Routes>
-            <Route path="/" element={<GearTable />} />
-            <Route path="/statistics" element={<p>Статистика</p>} />
-            <Route path="/logs" element={<p>Логи</p>} />
-          </Routes>
-        </MainContent>
-        <Footer />
-      </AppContainer>
-    </Router>
+    <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
+      <Router>
+        <AppContainer>
+          <Header />
+          <MainContent>
+            <Routes>
+              <Route path="/" element={<GearTable />} />
+              <Route path="/statistics" element={<p>Статистика</p>} />
+              <Route path="/logs" element={<p>Логи</p>} />
+            </Routes>
+          </MainContent>
+          <Footer />
+        </AppContainer>
+      </Router>
+    </SnackbarProvider>
   );
 }
 
