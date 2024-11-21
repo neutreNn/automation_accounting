@@ -79,11 +79,11 @@ const StyledTableCell = styled(MuiTableCell)`
   border-bottom: 1px solid #444444;
   display: flex;
   align-items: center;
-  /* Обрезка текста с многоточием */
   max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0;
 `;
 
 const StatusLine = styled.div`
@@ -91,6 +91,19 @@ const StatusLine = styled.div`
   height: 6px;
   border-radius: 5px;
   background-color: ${(props) => (props.isRecent ? '#00FF7F' : '#FF0000')};
+`;
+
+const CategoryText = styled.div`
+  background-color: #626d8a;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 `;
 
 const GearTable = () => {
@@ -144,12 +157,24 @@ const GearTable = () => {
                 <StyledTableCell>
                   <StatusLine isRecent={isRecentDate(gear.year_of_output)} />
                 </StyledTableCell>
-                <StyledTableCell>{gear.name}</StyledTableCell>
-                <StyledTableCell>{gear.category}</StyledTableCell>
-                <StyledTableCell>{gear.serial_number}</StyledTableCell>
-                <StyledTableCell>{gear.inventory_number}</StyledTableCell>
-                <StyledTableCell>{gear.price}</StyledTableCell>
-                <StyledTableCell>{gear.supplier}</StyledTableCell>
+                <StyledTableCell>
+                  {gear.name}
+                </StyledTableCell>
+                <StyledTableCell>
+                  <CategoryText>{gear.category}</CategoryText>
+                </StyledTableCell>
+                <StyledTableCell>
+                  {gear.serial_number}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {gear.inventory_number}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {gear.price}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {gear.supplier}
+                </StyledTableCell>
                 <StyledTableCell>
                   <IconButton>
                     <MoreHoriz />
