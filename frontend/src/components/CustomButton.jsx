@@ -28,7 +28,7 @@ const CustomButtonWrapper = styled.button`
   }
 `;
 
-function CustomButton({children, onClick, link}) {
+function CustomButton({ children, onClick, link, type = 'button', form, ...rest }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -38,11 +38,12 @@ function CustomButton({children, onClick, link}) {
       onClick();
     }
   };
-    return (
-        <CustomButtonWrapper onClick={handleClick}>
-            {children}
-        </CustomButtonWrapper>
-    );
+
+  return (
+    <CustomButtonWrapper onClick={handleClick} type={type} form={form} {...rest}>
+      {children}
+    </CustomButtonWrapper>
+  );
 }
 
 export default CustomButton;

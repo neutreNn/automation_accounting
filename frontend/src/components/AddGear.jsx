@@ -7,6 +7,7 @@ import CustomButton from './CustomButton';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StyledSelectField from './StyledSelectField';
+import { useCreateGearMutation } from '../api/apiGear';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -59,6 +60,19 @@ const ButtonSectionWrapper = styled.div`
 
 function AddGear({handleClose}) {
   const methods = useForm();
+  const [createGear] = useCreateGearMutation();
+
+  const handleSubmit = (formData) => {
+    createGear(formData)
+      .unwrap()
+      .then((response) => {
+        console.log('Инвентарь добавлен:', response);
+        handleClose();
+      })
+      .catch((err) => {
+        console.error('Ошибка запроса:', err);
+      });
+  };
 
   let options=[
     { value: 'Связь', label: 'Связь' },
@@ -77,7 +91,7 @@ function AddGear({handleClose}) {
       <FormSectionWrapper>
         <FormProvider {...methods}>
           <Form 
-            onSubmit={methods.handleSubmit(() => console.log("Форма отправлена"))}
+            onSubmit={methods.handleSubmit(handleSubmit)}
             id="add-gear"
             name="add-gear"
           >
@@ -149,7 +163,7 @@ function AddGear({handleClose}) {
           <ArrowBackIosIcon />
           Назад
         </CustomButton>
-        <CustomButton>
+        <CustomButton type="submit" form="add-gear">
           <AddIcon />
           Добавить
         </CustomButton>

@@ -17,12 +17,10 @@ export const gearCreateValidation = [
     body('category', 'Введите категорию').isString(),
     body('serial_number', 'Введите серийный номер').isLength({ min: 5 }).isString(),
     body('inventory_number', 'Введите инвентарный номер').isString(),
-
     body('year_of_release', 'Введите год выпуска').isString(),
     body('year_of_input', 'Введите год ввода').isString(),
     body('year_of_output', 'Введите год списания').isString(),
     body('price', 'Введите цену инвентаря').isNumeric(),
     body('supplier', 'Введите производителя инвентаря').isString(),
     body('location', 'Введите метонахождение').isString(),
-    body('history', 'Введите историю владения').isArray(),
 ];

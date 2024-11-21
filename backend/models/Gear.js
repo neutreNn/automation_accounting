@@ -46,7 +46,6 @@ const GearSchema = new mongoose.Schema(
         },
         history: {
             type: Array,
-            required: true,
             default: [],
         },
     },
