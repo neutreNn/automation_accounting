@@ -12,12 +12,15 @@ const apiGear = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Gears'],
   endpoints: (builder) => ({
     getAllGears: builder.query({
       query: () => '/gears',
+      providesTags: ['Gears'],
     }),
     getOneGear: builder.query({
       query: (id) => `/gears/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Gears', id }],
     }),
     createGear: builder.mutation({
       query: (data) => ({
@@ -25,6 +28,7 @@ const apiGear = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Gears'],
     }),
     updateGear: builder.mutation({
       query: ({ id, ...data }) => ({
@@ -32,12 +36,14 @@ const apiGear = createApi({
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Gears', id }, 'Gears'],
     }),
     removeGear: builder.mutation({
       query: (id) => ({
         url: `/gears/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: (result, error, id) => [{ type: 'Gears', id }, 'Gears'],
     }),
   }),
 });
