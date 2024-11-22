@@ -1,12 +1,16 @@
 ﻿import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import MuiLogoutIcon from '@mui/icons-material/Logout';
-import AddIcon from '@mui/icons-material/Add';
 import { Modal } from '@mui/material';
 import AddGear from './AddGear';
 import CustomButton from './CustomButton';
 import { useSnackbar } from 'notistack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import InsightsIcon from '@mui/icons-material/Insights';
+import DvrIcon from '@mui/icons-material/Dvr';
+import MuiLogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from '@mui/icons-material/Add';
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -42,6 +46,14 @@ const Nav = styled.nav`
   display: flex;
   gap: 40px;
   margin-right: auto;
+  align-items: center;
+`;
+
+const NavLinkContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
 `;
 
 const NavLink = styled(RouterLink)`
@@ -84,9 +96,30 @@ function Header() {
           </LogoContainer>
 
           <Nav>
-            <NavLink to="/">Главная</NavLink>
-            <NavLink to="/statistics">Статистика</NavLink>
-            <NavLink to="/logs">Логи</NavLink>
+            <NavLink to="/">
+              <NavLinkContent>
+                <InventoryIcon />
+                Инвентарь
+              </NavLinkContent>
+            </NavLink>
+            <NavLink to="/statistics">
+              <NavLinkContent>
+                <InsightsIcon />
+                Статистика
+              </NavLinkContent>
+            </NavLink>
+            <NavLink to="/logs">
+              <NavLinkContent>
+                <DvrIcon />
+                Логи
+              </NavLinkContent>
+            </NavLink>
+            <NavLink to="/trash-can">
+              <NavLinkContent>
+                <DeleteIcon />
+                Корзина
+              </NavLinkContent>
+            </NavLink>
           </Nav>
 
           <ButtonsContainer>
