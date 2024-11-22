@@ -47,7 +47,7 @@ const TablePagination = styled(MuiTablePagination)`
 
 const TableContainer = styled(MuiTableContainer)`
   margin: 20px auto;
-  max-width: 1200px;
+  max-width: 1300px;
   border-radius: 8px;
   border: 1px solid #444444;
   background-color: #0d1117;
