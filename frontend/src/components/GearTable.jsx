@@ -13,7 +13,7 @@ import {
   TablePagination as MuiTablePagination,
 } from '@mui/material';
 
-import { Delete, MoreHoriz } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 
 import { useGetAllGearsQuery } from '../api/apiGear';
 import CircleLoader from './CircleLoader';
@@ -22,12 +22,14 @@ import ErrorMessage from './ErrorMessage';
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
   background-color: #292929;
-  color: white;
-  &:hover {
-    background-color: #444444;
-  }
+  transition: background-color 0.3s ease;
   .MuiSvgIcon-root {
     color: white;
+  }
+  &.MuiButtonBase-root {
+    &:hover {
+      background-color: #626d8a;
+    }
   }
 `;
 
@@ -176,9 +178,6 @@ const GearTable = () => {
                   {gear.supplier}
                 </StyledTableCell>
                 <StyledTableCell>
-                  <IconButton>
-                    <MoreHoriz />
-                  </IconButton>
                   <IconButton style={{ marginLeft: '8px' }}>
                     <Delete />
                   </IconButton>
