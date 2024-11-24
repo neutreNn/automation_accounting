@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import GearTable from './components/GearTable';
 import styled from 'styled-components';
 import { SnackbarProvider } from 'notistack'
+import ChartsPage from './components/ChartsPage';
 
 const AppContainer = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ function App() {
           <MainContent>
             <Routes>
               <Route path="/" element={<GearTable />} />
-              <Route path="/statistics" element={<p>Статистика</p>} />
+              <Route path="/statistics" element={<ChartsPage />} />
               <Route path="/logs" element={<p>Логи</p>} />
             </Routes>
           </MainContent>
