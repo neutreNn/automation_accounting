@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import { PieChart, Pie, Cell } from 'recharts';
 import styled from 'styled-components';
+import { categoryOptions } from '../constants/categoryOptions';
 
 const Container = styled.div`
   border: 1px solid #343435;
@@ -93,16 +94,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 const InventoryPieChart = ({ gears }) => {
 
-  const options = [
-    { value: 'Связь', label: 'Связь' },
-    { value: 'Безопасность', label: 'Безопасность' },
-    { value: 'Спецодежда', label: 'Спецодежда' },
-    { value: 'Инструменты', label: 'Инструменты' },
-    { value: 'Освещение', label: 'Освещение' },
-    { value: 'Складское оборудование', label: 'Складское оборудование' },
-  ];
-
-  const categoryCounts = options.map((option) => ({
+  const categoryCounts = categoryOptions.map((option) => ({
     name: option.label,
     value: gears.filter((gear) => gear.category.includes(option.value)).length,
   }));

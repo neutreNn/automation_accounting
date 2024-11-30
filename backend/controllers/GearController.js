@@ -104,6 +104,7 @@ export const create = async (req, res) => {
             price: req.body.price,
             supplier: req.body.supplier,
             location: req.body.location,
+            available: req.body.available,
             history: req.body.history,
         });
 

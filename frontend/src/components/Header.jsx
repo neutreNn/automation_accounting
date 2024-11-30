@@ -11,6 +11,7 @@ import InsightsIcon from '@mui/icons-material/Insights';
 import DvrIcon from '@mui/icons-material/Dvr';
 import MuiLogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
+import { createSnackbarHandler } from '../utils/showSnackbar';
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -82,9 +83,7 @@ function Header() {
   const handleClose = () => setOpen(false);
 
   const { enqueueSnackbar } = useSnackbar();
-  const handleSnackbar = (message, variant) => {
-    enqueueSnackbar(message, { variant });
-  };
+  const handleSnackbar = createSnackbarHandler(enqueueSnackbar);
 
   return (
     <>

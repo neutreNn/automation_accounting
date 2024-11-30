@@ -21,6 +21,7 @@ import CircleLoader from './CircleLoader';
 import ErrorMessage from './ErrorMessage';
 import GearDetailsModal from './GearDetailsModal';
 import { useSnackbar } from 'notistack';
+import { createSnackbarHandler } from '../utils/showSnackbar';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -95,7 +96,7 @@ const StatusLine = styled.div`
   width: 100%;
   height: 6px;
   border-radius: 5px;
-  background-color: ${(props) => (props.isRecent ? '#00FF7F' : '#FF0000')};
+  background-color: ${(props) => (props.isAvailable ? '#00FF7F' : '#FF0000')};
 `;
 
 const CategoryText = styled.div`
@@ -127,9 +128,7 @@ const GearTable = () => {
   };
   
   const { enqueueSnackbar } = useSnackbar();
-  const handleSnackbar = (message, variant) => {
-    enqueueSnackbar(message, { variant });
-  };
+  const handleSnackbar = createSnackbarHandler(enqueueSnackbar);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -140,19 +139,13 @@ const GearTable = () => {
     setPage(0);
   };
 
-  if (isLoading) return <CircleLoader />;
-  if (isError) return <ErrorMessage />;
-
-  const isRecentDate = (date) => {
-    const currentYear = new Date().getFullYear();
-    const yearOfOutput = new Date(date).getFullYear();
-    return currentYear <= yearOfOutput;
-  };
-
-  const paginatedGears = gears.slice(
+  const paginatedGears = gears ? gears.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
-  );
+  ) : [];
+
+  if (isLoading) return <CircleLoader />;
+  if (isError) return <ErrorMessage />;
 
   return (
     <>
@@ -174,7 +167,7 @@ const GearTable = () => {
             {paginatedGears.map((gear) => (
               <TableRow key={gear._id} onClick={() => handleRowClick(gear._id)}>
                 <StyledTableCell>
-                  <StatusLine isRecent={isRecentDate(gear.year_of_output)} />
+                  <StatusLine isAvailable={gear.available} />
                 </StyledTableCell>
                 <StyledTableCell>
                   {gear.name}

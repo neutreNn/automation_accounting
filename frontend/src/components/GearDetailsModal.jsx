@@ -8,6 +8,9 @@ import StyledTextField from './StyledTextField';
 import StyledSelectField from './StyledSelectField';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import EditIcon from '@mui/icons-material/Edit';
+import { categoryOptions } from '../constants/categoryOptions';
+import ErrorMessage from './ErrorMessage';
+import CircleLoader from './CircleLoader';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -59,7 +62,7 @@ const Row = styled.div`
 `;
 
 const GearDetailsModal = ({ handleClose, selectedGear, handleSnackbar }) => {
-    const { data: gear, isError } = useGetOneGearQuery(selectedGear);
+    const { data: gear, isError, isLoading } = useGetOneGearQuery(selectedGear);
     const [updateGear] = useUpdateGearMutation();
     const methods = useForm();
   
@@ -79,12 +82,9 @@ const GearDetailsModal = ({ handleClose, selectedGear, handleSnackbar }) => {
         });
       }
     }, [gear, methods]);
-  
-    useEffect(() => {
-      if (isError) {
-        handleClose();
-      }
-    }, [isError, handleClose]);
+
+    if (isError) return <ErrorMessage />;
+    if (isLoading) return <CircleLoader />;
   
     const handleSubmit = (formData) => {
       updateGear({id: selectedGear, ...formData })
@@ -98,17 +98,6 @@ const GearDetailsModal = ({ handleClose, selectedGear, handleSnackbar }) => {
           console.error('Ошибка запроса:', err);
         });
     };
-  
-    let options = [
-      { value: 'Связь', label: 'Связь' },
-      { value: 'Безопасность', label: 'Безопасность' },
-      { value: 'Спецодежда', label: 'Спецодежда' },
-      { value: 'Инструменты', label: 'Инструменты' },
-      { value: 'Освещение', label: 'Освещение' },
-      { value: 'Складское оборудование', label: 'Складское оборудование' },
-    ];
-  
-    if (!gear) return null;
   
     return (
       <FormContainer>
@@ -131,7 +120,7 @@ const GearDetailsModal = ({ handleClose, selectedGear, handleSnackbar }) => {
                 name="category"
                 label="Категория"
                 requiredText="Категория должна быть выбрана"
-                options={options}
+                options={categoryOptions}
               />
               <Row>
                 <StyledTextField

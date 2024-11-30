@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StyledSelectField from './StyledSelectField';
 import { useCreateGearMutation } from '../api/apiGear';
+import { categoryOptions } from '../constants/categoryOptions';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -75,15 +76,6 @@ function AddGear({handleClose, handleSnackbar}) {
       });
   };
 
-  let options=[
-    { value: 'Связь', label: 'Связь' },
-    { value: 'Безопасность', label: 'Безопасность' },
-    { value: 'Спецодежда', label: 'Спецодежда' },
-    { value: 'Инструменты', label: 'Инструменты' },
-    { value: 'Освещение', label: 'Освещение' },
-    { value: 'Складское оборудование', label: 'Складское оборудование' },
-  ];
-
   return (
     <FormContainer maxWidth="sm">
       <Typography variant="h5" component="h1" color="white" gutterBottom>
@@ -105,7 +97,7 @@ function AddGear({handleClose, handleSnackbar}) {
               name="category"
               label="Категория"
               requiredText="Категория должна быть выбрана"
-              options={options}
+              options={categoryOptions}
             />
 
             <Row>

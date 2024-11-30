@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import { AreaChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Area, Tooltip } from 'recharts';
 import styled from 'styled-components';
+import { transformDataLineChart } from '../utils/transformDataLineChart';
 
 const Container = styled.div`
   border: 1px solid #343435;
@@ -43,29 +44,8 @@ const StyledTypographyCaption = styled(Typography)`
   font-size: 12px;
 `;
 
-function transformData(inventory) {
-  const yearsData = {};
-
-  inventory.forEach(item => {
-    const yearOfInput = item.year_of_input;
-    const yearOfOutput = item.year_of_output;
-
-    if (yearOfInput) {
-      yearsData[yearOfInput] = yearsData[yearOfInput] || { name: yearOfInput, uv: 0, pv: 0 };
-      yearsData[yearOfInput].uv += 1;
-    }
-
-    if (yearOfOutput) {
-      yearsData[yearOfOutput] = yearsData[yearOfOutput] || { name: yearOfOutput, uv: 0, pv: 0 };
-      yearsData[yearOfOutput].pv += 1;
-    }
-  });
-
-  return Object.values(yearsData).sort((a, b) => a.name - b.name);
-}
-
 const InventoryLineChart = ({ gears }) => {
-  let data = transformData(gears);
+  let data = transformDataLineChart(gears);
 
   return (
     <Container>
