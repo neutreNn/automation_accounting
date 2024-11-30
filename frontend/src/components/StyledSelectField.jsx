@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 
 const FieldWrapper = styled.div`
   display: flex;
@@ -57,7 +57,7 @@ const CustomSelect = styled(Select)`
 
 function StyledSelect({ name, label, requiredText, options, ...props }) {
   const {
-    register,
+    control,
     formState: { errors },
     trigger,
   } = useFormContext();
@@ -70,20 +70,26 @@ function StyledSelect({ name, label, requiredText, options, ...props }) {
     <FieldWrapper>
       <CustomFormControl variant="outlined" size="small" error={!!errors[name]}>
         <InputLabel>{label}</InputLabel>
-        <CustomSelect
-          {...register(name, {
-            required: requiredText || 'Это поле обязательно',
-          })}
-          label={label}
-          onBlur={handleBlur}
-          {...props}
-        >
-          {options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </CustomSelect>
+        <Controller
+          name={name}
+          control={control}
+          defaultValue=""
+          rules={{ required: requiredText || 'Это поле обязательно' }}
+          render={({ field }) => (
+            <CustomSelect
+              {...field}
+              label={label}
+              onBlur={handleBlur}
+              {...props}
+            >
+              {options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </CustomSelect>
+          )}
+        />
       </CustomFormControl>
       <ErrorMessage visible={!!errors[name]}>{errors[name]?.message}</ErrorMessage>
     </FieldWrapper>

@@ -11,6 +11,7 @@ import {
   TableRow as MuiTableRow, 
   IconButton as MuiIconButton, 
   TablePagination as MuiTablePagination,
+  Modal,
 } from '@mui/material';
 
 import { Delete } from '@mui/icons-material';
@@ -18,6 +19,8 @@ import { Delete } from '@mui/icons-material';
 import { useGetAllGearsQuery } from '../api/apiGear';
 import CircleLoader from './CircleLoader';
 import ErrorMessage from './ErrorMessage';
+import GearDetailsModal from './GearDetailsModal';
+import { useSnackbar } from 'notistack';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -110,9 +113,23 @@ const CategoryText = styled.div`
 
 const GearTable = () => {
   const { data: gears, isLoading, isError } = useGetAllGearsQuery();
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [selectedGear, setSelectedGear] = useState('');
+  const handleRowClick = (id) => {
+    setSelectedGear(id);
+    handleOpen();
+  };
+  
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSnackbar = (message, variant) => {
+    enqueueSnackbar(message, { variant });
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -155,7 +172,7 @@ const GearTable = () => {
           </TableHead>
           <TableBody>
             {paginatedGears.map((gear) => (
-              <TableRow key={gear._id}>
+              <TableRow key={gear._id} onClick={() => handleRowClick(gear._id)}>
                 <StyledTableCell>
                   <StatusLine isRecent={isRecentDate(gear.year_of_output)} />
                 </StyledTableCell>
@@ -197,6 +214,14 @@ const GearTable = () => {
           labelRowsPerPage="Строк на странице:"
         />
       </TableContainer>
+      <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+        <GearDetailsModal handleClose={handleClose} selectedGear={selectedGear} handleSnackbar={handleSnackbar}/>
+      </Modal>
     </>
   );
 };
