@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { categoryOptions } from '../constants/categoryOptions';
 import ErrorMessage from './ErrorMessage';
 import CircleLoader from './CircleLoader';
+import HistorySection from './HistorySection';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -31,6 +32,8 @@ const FormSectionWrapper = styled.div`
   border: 1px solid #343435;
   border-radius: 10px 10px 0 0;
   padding: 15px;
+  display: flex;
+  gap: 10px;
 `;
 
 const Form = styled.form`
@@ -170,6 +173,7 @@ const GearDetailsModal = ({ handleClose, selectedGear, handleSnackbar }) => {
               />
             </Form>
           </FormProvider>
+          <HistorySection history={gear.history} />
         </FormSectionWrapper>
         <ButtonSectionWrapper>
           <CustomButton onClick={handleClose}>
