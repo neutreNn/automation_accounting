@@ -14,7 +14,7 @@ import {
   Modal,
 } from '@mui/material';
 
-import { Delete } from '@mui/icons-material';
+import { Delete, Done, Close } from '@mui/icons-material';
 
 import { useGetAllGearsQuery } from '../api/apiGear';
 import CircleLoader from './CircleLoader';
@@ -22,6 +22,7 @@ import ErrorMessage from './ErrorMessage';
 import GearDetailsModal from './GearDetailsModal';
 import { useSnackbar } from 'notistack';
 import { createSnackbarHandler } from '../utils/showSnackbar';
+import StatusChangeModal from './StatusChangeModal';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -117,14 +118,24 @@ const GearTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openGearDetails, setOpenGearDetails] = useState(false);
+  const handleOpenGearDetails = () => setOpenGearDetails(true);
+  const handlecloseGearDetails = () => setOpenGearDetails(false);
+
+  const [openStatusChange, setOpenStatusChange] = useState(false);
+  const handleOpenStatusChange = () => setOpenStatusChange(true);
+  const handleCloseStatusChange = () => setOpenStatusChange(false);
 
   const [selectedGear, setSelectedGear] = useState('');
+
+  const handleStatusChangeClick = (id) => {
+    setSelectedGear(id);
+    handleOpenStatusChange();
+  };
+
   const handleRowClick = (id) => {
     setSelectedGear(id);
-    handleOpen();
+    handleOpenGearDetails();
   };
   
   const { enqueueSnackbar } = useSnackbar();
@@ -139,13 +150,13 @@ const GearTable = () => {
     setPage(0);
   };
 
+  if (isLoading) return <CircleLoader />;
+  if (isError) return <ErrorMessage />;
+
   const paginatedGears = gears ? gears.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   ) : [];
-
-  if (isLoading) return <CircleLoader />;
-  if (isError) return <ErrorMessage />;
 
   return (
     <>
@@ -188,7 +199,24 @@ const GearTable = () => {
                   {gear.supplier}
                 </StyledTableCell>
                 <StyledTableCell>
-                  <IconButton style={{ marginLeft: '8px' }}>
+                  <IconButton 
+                      style={{ marginLeft: '8px' }} 
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleStatusChangeClick(gear._id);
+                        } 
+                      }
+                  >
+                    {gear.available ? <Done /> : <Close />}
+                  </IconButton>
+                  <IconButton 
+                    style={{ marginLeft: '8px' }} 
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      console.log('Кнопка нажата');
+                      } 
+                    }
+                  >
                     <Delete />
                   </IconButton>
                 </StyledTableCell>
@@ -208,12 +236,20 @@ const GearTable = () => {
         />
       </TableContainer>
       <Modal
-          open={open}
-          onClose={handleClose}
+          open={openGearDetails}
+          onClose={handlecloseGearDetails}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-        <GearDetailsModal handleClose={handleClose} selectedGear={selectedGear} handleSnackbar={handleSnackbar}/>
+        <GearDetailsModal handleClose={handlecloseGearDetails} selectedGear={selectedGear} handleSnackbar={handleSnackbar}/>
+      </Modal>
+      <Modal
+          open={openStatusChange}
+          onClose={handleCloseStatusChange}
+          aria-labelledby="modal-modal-title2"
+          aria-describedby="modal-modal-description2"
+        >
+        <StatusChangeModal handleClose={handleCloseStatusChange} selectedGear={selectedGear} handleSnackbar={handleSnackbar}/>
       </Modal>
     </>
   );
