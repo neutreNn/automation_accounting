@@ -22,18 +22,36 @@ const CustomTextField = styled(TextField)`
     border: 1px solid #222223;
     border-radius: 5px;
     color: #fff;
+
+    &.Mui-disabled {
+      color: #ccc; /* Цвет текста при disabled */
+      -webkit-text-fill-color: #ccc; /* Для Safari */
+    }
   }
 
   & .MuiInputLabel-root {
     color: #ccc;
+
+    &.Mui-disabled {
+      color: #ccc; /* Цвет лейбла при disabled */
+    }
   }
 
   & .MuiInputBase-input {
     color: #fff;
+
+    &.Mui-disabled {
+      color: #ccc; /* Цвет текста внутри инпута */
+      -webkit-text-fill-color: #ccc; /* Для Safari */
+    }
   }
 
   & .MuiOutlinedInput-notchedOutline {
     border: 1px solid #222223;
+
+    &.Mui-disabled {
+      border-color: #555; /* Цвет границы при disabled */
+    }
   }
 
   & .Mui-focused .MuiOutlinedInput-notchedOutline {
@@ -52,6 +70,7 @@ const CustomTextField = styled(TextField)`
     color: red;
   }
 `;
+
 
 function StyledTextField({ name, label, requiredText, ...props }) {
   const {

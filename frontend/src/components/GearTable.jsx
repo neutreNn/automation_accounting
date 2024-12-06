@@ -126,15 +126,15 @@ const GearTable = () => {
   const handleOpenStatusChange = () => setOpenStatusChange(true);
   const handleCloseStatusChange = () => setOpenStatusChange(false);
 
-  const [selectedGear, setSelectedGear] = useState('');
+  const [selectedGear, setSelectedGear] = useState({});
 
-  const handleStatusChangeClick = (id) => {
-    setSelectedGear(id);
+  const handleStatusChangeClick = (gear) => {
+    setSelectedGear(gear);
     handleOpenStatusChange();
   };
 
-  const handleRowClick = (id) => {
-    setSelectedGear(id);
+  const handleRowClick = (gear) => {
+    setSelectedGear(gear);
     handleOpenGearDetails();
   };
   
@@ -176,7 +176,7 @@ const GearTable = () => {
           </TableHead>
           <TableBody>
             {paginatedGears.map((gear) => (
-              <TableRow key={gear._id} onClick={() => handleRowClick(gear._id)}>
+              <TableRow key={gear._id} onClick={() => handleRowClick(gear)}>
                 <StyledTableCell>
                   <StatusLine isAvailable={gear.available} />
                 </StyledTableCell>
@@ -203,7 +203,7 @@ const GearTable = () => {
                       style={{ marginLeft: '8px' }} 
                       onClick={(event) => {
                         event.stopPropagation();
-                        handleStatusChangeClick(gear._id);
+                        handleStatusChangeClick(gear);
                         } 
                       }
                   >
@@ -240,8 +240,12 @@ const GearTable = () => {
           onClose={handlecloseGearDetails}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-        >
-        <GearDetailsModal handleClose={handlecloseGearDetails} selectedGear={selectedGear} handleSnackbar={handleSnackbar}/>
+      >
+        <GearDetailsModal 
+          handleClose={handlecloseGearDetails} 
+          selectedGear={selectedGear._id} 
+          handleSnackbar={handleSnackbar}
+        />
       </Modal>
       <Modal
           open={openStatusChange}
@@ -249,7 +253,12 @@ const GearTable = () => {
           aria-labelledby="modal-modal-title2"
           aria-describedby="modal-modal-description2"
         >
-        <StatusChangeModal handleClose={handleCloseStatusChange} selectedGear={selectedGear} handleSnackbar={handleSnackbar}/>
+        <StatusChangeModal 
+          handleClose={handleCloseStatusChange} 
+          selectedGear={selectedGear._id}
+          availableStatus={selectedGear.available}
+          handleSnackbar={handleSnackbar} 
+        />
       </Modal>
     </>
   );

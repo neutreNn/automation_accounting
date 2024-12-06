@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
 import StyledTextField from './StyledTextField';
-import StyledSelect from './StyledSelectField';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useUpdateGearMutation } from '../api/apiGear';
 import { Container } from '@mui/system';
@@ -50,14 +49,28 @@ const ButtonSectionWrapper = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear }) => {
+const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availableStatus }) => {
   const methods = useForm();
   const [updateGear] = useUpdateGearMutation();
 
-  const statusChangeOptions = [
-    { value: 'Взял', label: 'Взял' },
-    { value: 'Вернул', label: 'Вернул' },
-  ];
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today
+      .toLocaleString('ru-RU', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+      })
+      .replace(',', '');
+    methods.reset({
+      date_of_action: formattedDate,
+      fio: '',
+      employee_number: '',
+      action: availableStatus ? 'Взял' : 'Вернул',
+    });
+  }, [methods]);
 
   const handleSubmit = (formData) => {
     updateGear({id: selectedGear, ...formData })
@@ -88,6 +101,13 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear }) => {
                 name="date_of_action"
                 label="Дата действия"
                 requiredText="Дата действия должно быть указано"
+                disabled
+            />
+            <StyledTextField
+              name="action"
+              label="Действие"
+              requiredText="Действие должно быть выбрано"
+              disabled
             />
             <StyledTextField
               name="fio"
@@ -98,12 +118,6 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear }) => {
               name="employee_number"
               label="Табельный номер"
               requiredText="Табельный номер должен быть выбран"
-            />
-            <StyledSelect
-              name="action"
-              label="Действие"
-              requiredText="Действие должно быть выбрано"
-              options={statusChangeOptions}
             />
           </Form>
         </FormProvider>
