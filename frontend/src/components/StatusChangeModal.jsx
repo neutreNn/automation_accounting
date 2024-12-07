@@ -67,6 +67,7 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
       date: formData.date_of_action,
       action: formData.action,
       fio: formData.fio,
+      employee_number: formData.employee_number,
     };
 
     updateGear({

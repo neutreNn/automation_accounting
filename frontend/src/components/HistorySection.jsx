@@ -37,7 +37,7 @@ const HistorySection = ({ history }) => {
         history.map((entry, index) => (
           <HistoryItem key={index}>
             <Typography variant="body2" color="white">
-              <strong>{entry.date}:</strong> {entry.fio} - {entry.action}
+              <strong>{entry.date}:</strong> {entry.fio} [{entry.employee_number}] - {entry.action}
             </Typography>       
           </HistoryItem>
         ))
