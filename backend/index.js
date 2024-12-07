@@ -42,7 +42,7 @@ app.get('/gears', GearController.getAll);
 app.get('/gears/:id', GearController.getOne);
 app.post('/gears', checkAuth, gearCreateValidation, handleValidationErrors, GearController.create);
 app.delete('/gears/:id', checkAuth, handleValidationErrors, GearController.remove);
-app.patch('/gears/:id', checkAuth, gearCreateValidation, handleValidationErrors, GearController.update);
+app.patch('/gears/:id', checkAuth, handleValidationErrors, GearController.update);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({

@@ -76,6 +76,7 @@ export const update = async (req, res) => {
                 price: req.body.price,
                 supplier: req.body.supplier,
                 history: req.body.history,
+                available: req.body.available,
             },
         );
 

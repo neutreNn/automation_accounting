@@ -257,6 +257,7 @@ const GearTable = () => {
           handleClose={handleCloseStatusChange} 
           selectedGear={selectedGear._id}
           availableStatus={selectedGear.available}
+          gearHistory={selectedGear.history}
           handleSnackbar={handleSnackbar} 
         />
       </Modal>

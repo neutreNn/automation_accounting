@@ -6,8 +6,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useUpdateGearMutation } from '../api/apiGear';
 import { Container } from '@mui/system';
 import CustomButton from './CustomButton';
-import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { formatDate } from '../utils/formatDate';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -49,31 +50,30 @@ const ButtonSectionWrapper = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availableStatus }) => {
+const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availableStatus, gearHistory }) => {
   const methods = useForm();
   const [updateGear] = useUpdateGearMutation();
 
   useEffect(() => {
-    const today = new Date();
-    const formattedDate = today
-      .toLocaleString('ru-RU', { 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-      })
-      .replace(',', '');
+    const todayDate = formatDate(new Date());
     methods.reset({
-      date_of_action: formattedDate,
-      fio: '',
-      employee_number: '',
+      date_of_action: todayDate,
       action: availableStatus ? 'Взял' : 'Вернул',
     });
   }, [methods]);
 
   const handleSubmit = (formData) => {
-    updateGear({id: selectedGear, ...formData })
+    const newHistoryRecord = {
+      date: formData.date_of_action,
+      action: formData.action,
+      fio: formData.fio,
+    };
+
+    updateGear({
+      id: selectedGear,
+      available: !availableStatus, 
+      history: [...gearHistory, newHistoryRecord],
+    })
       .unwrap()
       .then(() => {
         handleSnackbar(`Статус инвентаря изменён`, "success");
@@ -88,14 +88,14 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
   return (
     <FormContainer maxWidth="sm">
       <Typography variant="h5" component="h1" color="white" gutterBottom>
-        Статус инвентаря
+        Редактировать статус инвентаря
       </Typography>
       <FormSectionWrapper>
         <FormProvider {...methods}>
           <Form 
             onSubmit={methods.handleSubmit(handleSubmit)}
-            id="add-gear"
-            name="add-gear"
+            id="edit-status-gear"
+            name="edit-status-gear"
           >
             <StyledTextField
                 name="date_of_action"
@@ -127,9 +127,9 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
           <ArrowBackIosIcon />
           Назад
         </CustomButton>
-        <CustomButton type="submit" form="add-gear">
-          <AddIcon />
-          Добавить
+        <CustomButton type="submit" form="edit-status-gear">
+          <EditIcon />
+          Редактировать
         </CustomButton>
       </ButtonSectionWrapper>
     </FormContainer>
