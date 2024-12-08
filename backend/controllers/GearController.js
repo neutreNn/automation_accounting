@@ -1,8 +1,11 @@
 ﻿import GearModel from '../models/Gear.js'
 
 export const getAll = async (req, res) => {
+
+    const filters = { ...req.query };
+
     try {
-        const gears = await GearModel.find();
+        const gears = await GearModel.find(filters);
 
         res.json(gears);
     } catch (err) {
@@ -77,6 +80,7 @@ export const update = async (req, res) => {
                 supplier: req.body.supplier,
                 history: req.body.history,
                 available: req.body.available,
+                trashCan: req.body.trashCan,
             },
         );
 

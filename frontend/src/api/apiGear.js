@@ -15,7 +15,10 @@ const apiGear = createApi({
   tagTypes: ['Gears'],
   endpoints: (builder) => ({
     getAllGears: builder.query({
-      query: () => '/gears',
+      query: (filters) => {
+        const queryString = new URLSearchParams(filters).toString();
+        return `/gears?${queryString}`;
+      },
       providesTags: ['Gears'],
     }),
     getOneGear: builder.query({

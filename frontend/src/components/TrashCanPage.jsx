@@ -14,7 +14,8 @@ import {
   Modal,
 } from '@mui/material';
 
-import { Delete, Done, Close } from '@mui/icons-material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import UndoIcon from '@mui/icons-material/Undo';
 
 import { useGetAllGearsQuery, useUpdateGearMutation } from '../api/apiGear';
 import CircleLoader from './CircleLoader';
@@ -22,7 +23,7 @@ import ErrorMessage from './ErrorMessage';
 import GearDetailsModal from './GearDetailsModal';
 import { useSnackbar } from 'notistack';
 import { createSnackbarHandler } from '../utils/showSnackbar';
-import StatusChangeModal from './StatusChangeModal';
+import DeleteGearModal from './DeleteGearModal';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -97,7 +98,7 @@ const StatusLine = styled.div`
   width: 100%;
   height: 6px;
   border-radius: 5px;
-  background-color: ${(props) => (props.isAvailable ? '#00FF7F' : '#FF0000')};
+  background-color: #FFD700;
 `;
 
 const CategoryText = styled.div`
@@ -113,8 +114,8 @@ const CategoryText = styled.div`
   box-sizing: border-box;
 `;
 
-const GearTable = () => {
-  const { data: gears, isLoading, isError } = useGetAllGearsQuery({trashCan: false});
+const TrashCanPage = () => {
+  const { data: gears, isLoading, isError } = useGetAllGearsQuery({trashCan: true});
   const [updateGear] = useUpdateGearMutation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -123,39 +124,39 @@ const GearTable = () => {
   const handleOpenGearDetails = () => setOpenGearDetails(true);
   const handlecloseGearDetails = () => setOpenGearDetails(false);
 
-  const [openStatusChange, setOpenStatusChange] = useState(false);
-  const handleOpenStatusChange = () => setOpenStatusChange(true);
-  const handleCloseStatusChange = () => setOpenStatusChange(false);
+  const [openDeleteGear, setOpenDeleteGear] = useState(false);
+  const handleOpenDeleteGear = () => setOpenDeleteGear(true);
+  const handleCloseDeleteGear = () => setOpenDeleteGear(false);
 
   const [selectedGear, setSelectedGear] = useState({});
 
-  const handleStatusChangeClick = (gear) => {
-    setSelectedGear(gear);
-    handleOpenStatusChange();
-  };
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSnackbar = createSnackbarHandler(enqueueSnackbar);
 
-  const handleAddTrashCan = (gear) => {
+  const handleUndoClick = (gear) => {
     updateGear({
       id: gear._id,
       trashCan: !gear.trashCan,
     })
-      .unwrap()
-      .then(() => {
-        handleSnackbar(`Инвентарь успешно добавлен в корзину`, "success");
-      })
-      .catch((err) => {
-        handleSnackbar("Не удалось добавить инвентарь в корзину", "error");
-        console.error('Ошибка запроса:', err);
-      });
+    .unwrap()
+    .then(() => {
+      handleSnackbar(`Инвентарь восстановлен успешно`, "success");
+    })
+    .catch((err) => {
+      handleSnackbar("Не удалось восстановить инвентарь", "error");
+      console.error('Ошибка запроса:', err);
+    });
+  };
+
+  const handleRemoveClick = (gear) => {
+    setSelectedGear(gear);
+    handleOpenDeleteGear();
   };
 
   const handleRowClick = (gear) => {
     setSelectedGear(gear);
     handleOpenGearDetails();
   };
-  
-  const { enqueueSnackbar } = useSnackbar();
-  const handleSnackbar = createSnackbarHandler(enqueueSnackbar);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -194,7 +195,7 @@ const GearTable = () => {
             {paginatedGears.map((gear) => (
               <TableRow key={gear._id} onClick={() => handleRowClick(gear)}>
                 <StyledTableCell>
-                  <StatusLine isAvailable={gear.available} />
+                  <StatusLine />
                 </StyledTableCell>
                 <StyledTableCell>
                   {gear.name}
@@ -216,24 +217,24 @@ const GearTable = () => {
                 </StyledTableCell>
                 <StyledTableCell>
                   <IconButton 
-                      style={{ marginLeft: '8px' }} 
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleStatusChangeClick(gear);
-                        } 
-                      }
+                    style={{ marginLeft: '8px' }} 
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleUndoClick(gear)
+                    } 
+                    }
                   >
-                    {gear.available ? <Done /> : <Close />}
+                    <UndoIcon />
                   </IconButton>
                   <IconButton 
                     style={{ marginLeft: '8px' }} 
                     onClick={(event) => {
                       event.stopPropagation();
-                      handleAddTrashCan(gear);
+                      handleRemoveClick(gear);
                       } 
                     }
                   >
-                    <Delete />
+                    <DeleteForeverIcon />
                   </IconButton>
                 </StyledTableCell>
               </TableRow>
@@ -264,21 +265,19 @@ const GearTable = () => {
         />
       </Modal>
       <Modal
-        open={openStatusChange}
-        onClose={handleCloseStatusChange}
+        open={openDeleteGear}
+        onClose={handleCloseDeleteGear}
         aria-labelledby="modal-modal-title2"
         aria-describedby="modal-modal-description2"
       >
-        <StatusChangeModal 
-          handleClose={handleCloseStatusChange} 
-          selectedGear={selectedGear._id}
-          availableStatus={selectedGear.available}
-          gearHistory={selectedGear.history}
-          handleSnackbar={handleSnackbar} 
+        <DeleteGearModal 
+          handleClose={handleCloseDeleteGear} 
+          selectedGear={selectedGear} 
+          handleSnackbar={handleSnackbar}
         />
       </Modal>
     </>
   );
 };
 
-export default GearTable;
+export default TrashCanPage;

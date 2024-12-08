@@ -11,6 +11,11 @@ const GearSchema = new mongoose.Schema(
             required: true,
             default: true,
         },
+        trashCan: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
         category: {
             type: String,
             required: true,
