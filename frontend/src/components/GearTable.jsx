@@ -191,7 +191,14 @@ const GearTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedGears.map((gear) => (
+          {paginatedGears.length === 0 ? (
+              <TableRow>
+                <StyledTableCell colSpan={8} style={{ textAlign: 'center', minHeight: `${10 * 48}px` }}>
+                  Тут пока ничего нет
+                </StyledTableCell>
+              </TableRow>
+            ) : (
+            paginatedGears.map((gear) => (
               <TableRow key={gear._id} onClick={() => handleRowClick(gear)}>
                 <StyledTableCell>
                   <StatusLine isAvailable={gear.available} />
@@ -237,7 +244,8 @@ const GearTable = () => {
                   </IconButton>
                 </StyledTableCell>
               </TableRow>
-            ))}
+            ))
+          )}
           </TableBody>
         </Table>
         <TablePagination

@@ -192,53 +192,49 @@ const TrashCanPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedGears.map((gear) => (
-              <TableRow key={gear._id} onClick={() => handleRowClick(gear)}>
-                <StyledTableCell>
-                  <StatusLine />
-                </StyledTableCell>
-                <StyledTableCell>
-                  {gear.name}
-                </StyledTableCell>
-                <StyledTableCell>
-                  <CategoryText>{gear.category}</CategoryText>
-                </StyledTableCell>
-                <StyledTableCell>
-                  {gear.serial_number}
-                </StyledTableCell>
-                <StyledTableCell>
-                  {gear.inventory_number}
-                </StyledTableCell>
-                <StyledTableCell>
-                  {gear.price}
-                </StyledTableCell>
-                <StyledTableCell>
-                  {gear.supplier}
-                </StyledTableCell>
-                <StyledTableCell>
-                  <IconButton 
-                    style={{ marginLeft: '8px' }} 
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleUndoClick(gear)
-                    } 
-                    }
-                  >
-                    <UndoIcon />
-                  </IconButton>
-                  <IconButton 
-                    style={{ marginLeft: '8px' }} 
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleRemoveClick(gear);
-                      } 
-                    }
-                  >
-                    <DeleteForeverIcon />
-                  </IconButton>
+            {paginatedGears.length === 0 ? (
+              <TableRow>
+                <StyledTableCell colSpan={8} style={{ textAlign: 'center', minHeight: `${10 * 48}px` }}>
+                  Тут пока ничего нет
                 </StyledTableCell>
               </TableRow>
-            ))}
+            ) : (
+              paginatedGears.map((gear) => (
+                <TableRow key={gear._id} onClick={() => handleRowClick(gear)}>
+                  <StyledTableCell>
+                    <StatusLine />
+                  </StyledTableCell>
+                  <StyledTableCell>{gear.name}</StyledTableCell>
+                  <StyledTableCell>
+                    <CategoryText>{gear.category}</CategoryText>
+                  </StyledTableCell>
+                  <StyledTableCell>{gear.serial_number}</StyledTableCell>
+                  <StyledTableCell>{gear.inventory_number}</StyledTableCell>
+                  <StyledTableCell>{gear.price}</StyledTableCell>
+                  <StyledTableCell>{gear.supplier}</StyledTableCell>
+                  <StyledTableCell>
+                    <IconButton
+                      style={{ marginLeft: '8px' }}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleUndoClick(gear);
+                      }}
+                    >
+                      <UndoIcon />
+                    </IconButton>
+                    <IconButton
+                      style={{ marginLeft: '8px' }}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleRemoveClick(gear);
+                      }}
+                    >
+                      <DeleteForeverIcon />
+                    </IconButton>
+                  </StyledTableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
         <TablePagination
