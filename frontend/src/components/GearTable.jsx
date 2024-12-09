@@ -14,7 +14,7 @@ import {
   Modal,
 } from '@mui/material';
 
-import { Delete, Done, Close } from '@mui/icons-material';
+import { Delete, Done, Close, QrCode } from '@mui/icons-material';
 
 import { useGetAllGearsQuery, useUpdateGearMutation } from '../api/apiGear';
 import CircleLoader from './CircleLoader';
@@ -23,6 +23,7 @@ import GearDetailsModal from './GearDetailsModal';
 import { useSnackbar } from 'notistack';
 import { createSnackbarHandler } from '../utils/showSnackbar';
 import StatusChangeModal from './StatusChangeModal';
+import BarcodeGenerator from './BarcodeGenerator';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -127,7 +128,16 @@ const GearTable = () => {
   const handleOpenStatusChange = () => setOpenStatusChange(true);
   const handleCloseStatusChange = () => setOpenStatusChange(false);
 
+  const [openBarcode, setOpenBarcode] = useState(false);
+  const handleOpenBarcode = () => setOpenBarcode(true);
+  const handleCloseBarcode = () => setOpenBarcode(false);
+
   const [selectedGear, setSelectedGear] = useState({});
+
+  const handleBarcodeClick = (gear) => {
+    setSelectedGear(gear);
+    handleOpenBarcode();
+  };
 
   const handleStatusChangeClick = (gear) => {
     setSelectedGear(gear);
@@ -233,6 +243,16 @@ const GearTable = () => {
                     {gear.available ? <Done /> : <Close />}
                   </IconButton>
                   <IconButton 
+                      style={{ marginLeft: '8px' }} 
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleBarcodeClick(gear)
+                        } 
+                      }
+                  >
+                    <QrCode />
+                  </IconButton>
+                  <IconButton 
                     style={{ marginLeft: '8px' }} 
                     onClick={(event) => {
                       event.stopPropagation();
@@ -283,6 +303,17 @@ const GearTable = () => {
           availableStatus={selectedGear.available}
           gearHistory={selectedGear.history}
           handleSnackbar={handleSnackbar} 
+        />
+      </Modal>
+      <Modal
+        open={openBarcode}
+        onClose={handleCloseBarcode}
+        aria-labelledby="modal-modal-title3"
+        aria-describedby="modal-modal-description3"
+      >
+        <BarcodeGenerator
+          handleClose={handleCloseBarcode}
+          selectedGear={selectedGear.serial_number}
         />
       </Modal>
     </>
