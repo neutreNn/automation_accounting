@@ -91,7 +91,7 @@ const BarcodeGenerator = ({ handleClose, selectedGear }) => {
   return (
     <FormContainer maxWidth="sm">
       <Typography variant="h5" component="h1" color="white" gutterBottom>
-        Редактировать статус инвентаря
+        Штрихкод для инвентаря
       </Typography>
       <BarcodeSection>
         <svg ref={barcodeRef}></svg>
