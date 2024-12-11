@@ -26,6 +26,7 @@ import { useSnackbar } from 'notistack';
 import { createSnackbarHandler } from '../utils/showSnackbar';
 import DeleteGearModal from './DeleteGearModal';
 import BarcodeGenerator from './BarcodeGenerator';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -151,10 +152,10 @@ const TrashCanPage = () => {
     })
     .unwrap()
     .then(() => {
-      handleSnackbar(`Инвентарь восстановлен успешно`, "success");
+      handleSnackbar(snackbarTitles.gearRecover);
     })
     .catch((err) => {
-      handleSnackbar("Не удалось восстановить инвентарь", "error");
+      handleSnackbar(snackbarTitles.gearRecoverFailed);
       console.error('Ошибка запроса:', err);
     });
   };

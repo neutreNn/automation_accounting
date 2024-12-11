@@ -12,6 +12,7 @@ import { categoryOptions } from '../constants/categoryOptions';
 import ErrorMessage from './ErrorMessage';
 import CircleLoader from './CircleLoader';
 import HistorySection from './HistorySection';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -93,11 +94,11 @@ const GearDetailsModal = ({ handleClose, selectedGear, handleSnackbar }) => {
       updateGear({id: selectedGear, ...formData })
         .unwrap()
         .then(() => {
-          handleSnackbar(`Инвентарь редактирован`, "success");
+          handleSnackbar(snackbarTitles.gearUpdated);
           handleClose();
         })
         .catch((err) => {
-          handleSnackbar("Не удалось редактировать инвентарь", "error");
+          handleSnackbar(snackbarTitles.gearUpdateFailed);
           console.error('Ошибка запроса:', err);
         });
     };

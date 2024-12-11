@@ -9,6 +9,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StyledSelectField from './StyledSelectField';
 import { useCreateGearMutation } from '../api/apiGear';
 import { categoryOptions } from '../constants/categoryOptions';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -67,11 +68,11 @@ function AddGear({handleClose, handleSnackbar}) {
     createGear(formData)
       .unwrap()
       .then(() => {
-        handleSnackbar("Инвентарь добавлен", "success");
+        handleSnackbar(snackbarTitles.gearAdded);
         handleClose();
       })
       .catch((err) => {
-        handleSnackbar("Не удалось добавить инвентарь", "error");
+        handleSnackbar(snackbarTitles.gearAddFailed);
         console.error('Ошибка запроса:', err);
       });
   };

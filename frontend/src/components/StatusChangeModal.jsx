@@ -9,6 +9,7 @@ import CustomButton from './CustomButton';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { formatDate } from '../utils/formatDate';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -77,11 +78,11 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
     })
       .unwrap()
       .then(() => {
-        handleSnackbar(`Статус инвентаря изменён`, "success");
+        handleSnackbar(snackbarTitles.statusChanged);
         handleClose();
       })
       .catch((err) => {
-        handleSnackbar("Не удалось изменить статус инвентаря", "error");
+        handleSnackbar(snackbarTitles.statusChangeFailed);
         console.error('Ошибка запроса:', err);
       });
   };

@@ -8,6 +8,7 @@ import { Container } from '@mui/system';
 import CustomButton from './CustomButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -68,11 +69,11 @@ const DeleteGearModal = ({ handleSnackbar, handleClose, selectedGear }) => {
     removeGear(selectedGear._id)
       .unwrap()
       .then(() => {
-        handleSnackbar(`Инвентарь успешно удалён`, "success");
+        handleSnackbar(snackbarTitles.gearDeleted);
         handleClose();
       })
       .catch((err) => {
-        handleSnackbar("Не удалось удалить инвентарь", "error");
+        handleSnackbar(snackbarTitles.gearDeleteFailed);
         console.error('Ошибка запроса:', err);
       });
   };

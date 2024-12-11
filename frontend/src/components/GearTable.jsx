@@ -24,6 +24,7 @@ import { useSnackbar } from 'notistack';
 import { createSnackbarHandler } from '../utils/showSnackbar';
 import StatusChangeModal from './StatusChangeModal';
 import BarcodeGenerator from './BarcodeGenerator';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -151,10 +152,10 @@ const GearTable = () => {
     })
       .unwrap()
       .then(() => {
-        handleSnackbar(`Инвентарь успешно добавлен в корзину`, "success");
+        handleSnackbar(snackbarTitles.trashAdded);
       })
       .catch((err) => {
-        handleSnackbar("Не удалось добавить инвентарь в корзину", "error");
+        handleSnackbar(snackbarTitles.trashAddFailed);
         console.error('Ошибка запроса:', err);
       });
   };
