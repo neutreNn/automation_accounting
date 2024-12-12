@@ -194,7 +194,7 @@ const GearTable = () => {
               <StyledTableHeaderCell>Статус</StyledTableHeaderCell>
               <StyledTableHeaderCell>Название</StyledTableHeaderCell>
               <StyledTableHeaderCell>Категория</StyledTableHeaderCell>
-              <StyledTableHeaderCell>Серийный номер</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Год ввода</StyledTableHeaderCell>
               <StyledTableHeaderCell>Инвентарный номер</StyledTableHeaderCell>
               <StyledTableHeaderCell>Цена (₽)</StyledTableHeaderCell>
               <StyledTableHeaderCell>Поставщик</StyledTableHeaderCell>
@@ -221,7 +221,7 @@ const GearTable = () => {
                   <CategoryText>{gear.category}</CategoryText>
                 </StyledTableCell>
                 <StyledTableCell>
-                  {gear.serial_number}
+                  {gear.year_of_input}
                 </StyledTableCell>
                 <StyledTableCell>
                   {gear.inventory_number}

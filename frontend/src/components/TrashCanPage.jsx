@@ -196,7 +196,7 @@ const TrashCanPage = () => {
               <StyledTableHeaderCell>Статус</StyledTableHeaderCell>
               <StyledTableHeaderCell>Название</StyledTableHeaderCell>
               <StyledTableHeaderCell>Категория</StyledTableHeaderCell>
-              <StyledTableHeaderCell>Серийный номер</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Год ввода</StyledTableHeaderCell>
               <StyledTableHeaderCell>Инвентарный номер</StyledTableHeaderCell>
               <StyledTableHeaderCell>Цена (₽)</StyledTableHeaderCell>
               <StyledTableHeaderCell>Поставщик</StyledTableHeaderCell>
@@ -220,7 +220,7 @@ const TrashCanPage = () => {
                   <StyledTableCell>
                     <CategoryText>{gear.category}</CategoryText>
                   </StyledTableCell>
-                  <StyledTableCell>{gear.serial_number}</StyledTableCell>
+                  <StyledTableCell>{gear.year_of_input}</StyledTableCell>
                   <StyledTableCell>{gear.inventory_number}</StyledTableCell>
                   <StyledTableCell>{gear.price}</StyledTableCell>
                   <StyledTableCell>{gear.supplier}</StyledTableCell>
