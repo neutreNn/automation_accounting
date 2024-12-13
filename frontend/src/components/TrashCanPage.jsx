@@ -27,6 +27,8 @@ import { createSnackbarHandler } from '../utils/showSnackbar';
 import DeleteGearModal from './DeleteGearModal';
 import BarcodeGenerator from './BarcodeGenerator';
 import { snackbarTitles } from '../constants/snackbarTitles';
+import FilterActions from './FilterActions';
+import FilterModal from './FilterModal';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -118,7 +120,12 @@ const CategoryText = styled.div`
 `;
 
 const TrashCanPage = () => {
-  const { data: gears, isLoading, isError } = useGetAllGearsQuery({trashCan: true});
+  const [filters, setFilters] = useState({});
+  const { data: gears, isLoading, isError } = useGetAllGearsQuery({
+    trashCan: true,
+    ...filters,
+  });
+
   const [updateGear] = useUpdateGearMutation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -134,6 +141,10 @@ const TrashCanPage = () => {
   const [openBarcode, setOpenBarcode] = useState(false);
   const handleOpenBarcode = () => setOpenBarcode(true);
   const handleCloseBarcode = () => setOpenBarcode(false);
+
+  const [openFilter, setOpenFilter] = useState(false);
+  const handleOpenFilter = () => setOpenFilter(true);
+  const handleCloseFilter = () => setOpenFilter(false);
 
   const [selectedGear, setSelectedGear] = useState({});
 
@@ -190,6 +201,7 @@ const TrashCanPage = () => {
   return (
     <>
       <TableContainer component={Paper}>
+        <FilterActions handleOpenFilter={handleOpenFilter} filters={filters} setFilters={setFilters} />
         <Table>
           <TableHead>
             <TableRow>
@@ -303,6 +315,18 @@ const TrashCanPage = () => {
         <BarcodeGenerator
           handleClose={handleCloseBarcode}
           selectedGear={selectedGear.serial_number}
+        />
+      </Modal>
+      <Modal
+        open={openFilter}
+        onClose={handleCloseFilter}
+        aria-labelledby="modal-modal-title4"
+        aria-describedby="modal-modal-description4"
+      >
+        <FilterModal
+          handleClose={handleCloseFilter}
+          setFilters={setFilters}
+          filters={filters}
         />
       </Modal>
     </>

@@ -25,6 +25,8 @@ import { createSnackbarHandler } from '../utils/showSnackbar';
 import StatusChangeModal from './StatusChangeModal';
 import BarcodeGenerator from './BarcodeGenerator';
 import { snackbarTitles } from '../constants/snackbarTitles';
+import FilterModal from './FilterModal';
+import FilterActions from './FilterActions';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -116,10 +118,15 @@ const CategoryText = styled.div`
 `;
 
 const GearTable = () => {
-  const { data: gears, isLoading, isError } = useGetAllGearsQuery({trashCan: false});
+  const [filters, setFilters] = useState({});
+  const { data: gears, isLoading, isError } = useGetAllGearsQuery({
+    trashCan: false,
+    ...filters,
+  });
+
   const [updateGear] = useUpdateGearMutation();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [openGearDetails, setOpenGearDetails] = useState(false);
   const handleOpenGearDetails = () => setOpenGearDetails(true);
@@ -132,6 +139,10 @@ const GearTable = () => {
   const [openBarcode, setOpenBarcode] = useState(false);
   const handleOpenBarcode = () => setOpenBarcode(true);
   const handleCloseBarcode = () => setOpenBarcode(false);
+
+  const [openFilter, setOpenFilter] = useState(false);
+  const handleOpenFilter = () => setOpenFilter(true);
+  const handleCloseFilter = () => setOpenFilter(false);
 
   const [selectedGear, setSelectedGear] = useState({});
 
@@ -188,6 +199,7 @@ const GearTable = () => {
   return (
     <>
       <TableContainer component={Paper}>
+        <FilterActions handleOpenFilter={handleOpenFilter} filters={filters} setFilters={setFilters} />
         <Table>
           <TableHead>
             <TableRow>
@@ -315,6 +327,18 @@ const GearTable = () => {
         <BarcodeGenerator
           handleClose={handleCloseBarcode}
           selectedGear={selectedGear.serial_number}
+        />
+      </Modal>
+      <Modal
+        open={openFilter}
+        onClose={handleCloseFilter}
+        aria-labelledby="modal-modal-title4"
+        aria-describedby="modal-modal-description4"
+      >
+        <FilterModal
+          handleClose={handleCloseFilter}
+          setFilters={setFilters}
+          filters={filters}
         />
       </Modal>
     </>

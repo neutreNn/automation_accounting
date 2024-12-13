@@ -4,6 +4,23 @@ export const getAll = async (req, res) => {
 
     const filters = { ...req.query };
 
+    if (filters.price) {
+        const [minPrice, maxPrice] = filters.price.split(',').map(Number);
+        filters.price = { $gte: minPrice, $lte: maxPrice };
+    }
+    if (filters.year_of_release) {
+        const [minYear, maxYear] = filters.year_of_release.split(',').map(Number);
+        filters.year_of_release = { $gte: minYear, $lte: maxYear };
+    }
+    if (filters.year_of_input) {
+        const [minYear, maxYear] = filters.year_of_input.split(',').map(Number);
+        filters.year_of_input = { $gte: minYear, $lte: maxYear };
+    }
+    if (filters.year_of_output) {
+        const [minYear, maxYear] = filters.year_of_output.split(',').map(Number);
+        filters.year_of_output = { $gte: minYear, $lte: maxYear };
+    }
+
     try {
         const gears = await GearModel.find(filters);
 

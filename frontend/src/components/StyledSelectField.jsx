@@ -55,7 +55,7 @@ const CustomSelect = styled(Select)`
   }
 `;
 
-function StyledSelect({ name, label, requiredText, options, ...props }) {
+function StyledSelectField({ name, label, requiredText, options, ...props }) {
   const {
     control,
     formState: { errors },
@@ -74,7 +74,7 @@ function StyledSelect({ name, label, requiredText, options, ...props }) {
           name={name}
           control={control}
           defaultValue=""
-          rules={{ required: requiredText || 'Это поле обязательно' }}
+          rules={{ required: requiredText}}
           render={({ field }) => (
             <CustomSelect
               {...field}
@@ -96,4 +96,4 @@ function StyledSelect({ name, label, requiredText, options, ...props }) {
   );
 }
 
-export default StyledSelect;
+export default StyledSelectField;

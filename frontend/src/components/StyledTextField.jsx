@@ -87,7 +87,7 @@ function StyledTextField({ name, label, requiredText, ...props }) {
     <FieldWrapper>
       <CustomTextField
         {...register(name, {
-          required: requiredText || 'Это поле обязательно',
+          required: requiredText,
         })}
         label={label}
         variant="outlined"
