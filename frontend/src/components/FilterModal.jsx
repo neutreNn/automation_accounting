@@ -11,6 +11,7 @@ import StyledSlider from './StyledSlider';
 import StyledSelectField from './StyledSelectField';
 import { categoryOptions } from '../constants/categoryOptions';
 import { filterData } from '../utils/filterData';
+import { availableOptions } from '../constants/availableOptions';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -72,6 +73,7 @@ const FilterModal = ({ handleClose, setFilters, filters }) => {
 
   const handleSubmit = (data) => {
     const filteredData = filterData(data);
+    console.log(data);
     setFilters(filteredData);
     handleClose();
   };
@@ -89,10 +91,16 @@ const FilterModal = ({ handleClose, setFilters, filters }) => {
             id="filter-gear"
             name="filter-gear"
           >
-            <StyledTextField
-              name="name"
-              label="Название"
+            <Row>
+              <StyledTextField
+                name="name"
+                label="Название"
+              />
+              <StyledTextField
+              name="supplier"
+              label="Поставщик"
             />
+            </Row>
             <Row>
               <StyledTextField
                 name="serial_number"
@@ -103,14 +111,15 @@ const FilterModal = ({ handleClose, setFilters, filters }) => {
                 label="Инвентарный номер"
               />
             </Row>
-            <StyledTextField
-              name="supplier"
-              label="Поставщик"
-            />
             <StyledSelectField
               name="category"
               label="Категория"
               options={categoryOptions}
+            />
+            <StyledSelectField
+              name="available"
+              label="Доступность"
+              options={availableOptions}
             />
             <StyledSlider
               label="Цена"

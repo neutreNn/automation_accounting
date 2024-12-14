@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import styled from 'styled-components';
 import { FilterList } from '@mui/icons-material';
-import { Close } from '@mui/icons-material';
 import { IconButton as MuiIconButton } from '@mui/material';
+import FilterDeleteButton from './FilterDeleteButton';
 
 const FilterWrapper = styled.div`
   background-color: #161b22;
@@ -16,17 +16,6 @@ const FiltersList = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   margin-left: 8px;
-`;
-
-const FilterBlock = styled.div`
-  background-color: #292929;
-  color: white;
-  padding-left: 10px;
-  border-radius: 25px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 12px;
-  box-sizing: border-box;
 `;
 
 const IconButton = styled(MuiIconButton)`
@@ -44,10 +33,10 @@ const IconButton = styled(MuiIconButton)`
 `;
 
 function FilterActions({ filters, setFilters, handleOpenFilter }) {
-  const handleRemoveFilter = (filter) => {
+  const handleRemoveFilter = (filterKey) => {
     setFilters((prev) => {
       const updatedFilters = { ...prev };
-      delete updatedFilters[filter];
+      delete updatedFilters[filterKey];
       return updatedFilters;
     });
   };
@@ -56,97 +45,19 @@ function FilterActions({ filters, setFilters, handleOpenFilter }) {
     <FilterWrapper>
       <IconButton 
         style={{ marginLeft: '8px' }} 
-        onClick={() => {
-          handleOpenFilter();
-        }}
+        onClick={handleOpenFilter}
       >
         <FilterList />
       </IconButton>
       <FiltersList>
-        {filters.price && (
-          <FilterBlock>
-            Цена: от {filters.price[0]} до {filters.price[1]}
-            <IconButton
-              style={{ marginLeft: '8px' }}
-              onClick={() => handleRemoveFilter('price')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.year_of_input && (
-          <FilterBlock>
-            Ввод: от {filters.year_of_input[0]} до {filters.year_of_input[1]}
-            <IconButton
-              style={{ marginLeft: '8px' }}
-              onClick={() => handleRemoveFilter('year_of_input')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.year_of_output && (
-          <FilterBlock>
-            Вывод: от {filters.year_of_output[0]} до {filters.year_of_output[1]}
-            <IconButton
-              style={{ marginLeft: '8px' }}
-              onClick={() => handleRemoveFilter('year_of_output')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.year_of_release && (
-          <FilterBlock>
-            Выпуск: от {filters.year_of_release[0]} до {filters.year_of_release[1]}
-            <IconButton
-              style={{ marginLeft: '8px' }}
-              onClick={() => handleRemoveFilter('year_of_release')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.category && (
-          <FilterBlock>
-            Категория: {filters.category}
-            <IconButton
-              onClick={() => handleRemoveFilter('category')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.name && (
-          <FilterBlock>
-            Название: {filters.name}
-            <IconButton
-              onClick={() => handleRemoveFilter('name')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.serial_number && (
-          <FilterBlock>
-            Серийный номер: {filters.serial_number}
-            <IconButton
-              onClick={() => handleRemoveFilter('serial_number')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
-        {filters.supplier && (
-          <FilterBlock>
-            Поставщик: {filters.supplier}
-            <IconButton
-              onClick={() => handleRemoveFilter('supplier')}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-          </FilterBlock>
-        )}
+        {Object.entries(filters).map(([key, value]) => (
+          <FilterDeleteButton
+            key={key}
+            label={key}
+            value={value}
+            onRemove={() => handleRemoveFilter(key)}
+          />
+        ))}
       </FiltersList>
     </FilterWrapper>
   );
