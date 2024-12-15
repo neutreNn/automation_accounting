@@ -12,6 +12,7 @@ import StyledSelectField from './StyledSelectField';
 import { categoryOptions } from '../constants/categoryOptions';
 import { filterData } from '../utils/filterData';
 import { availableOptions } from '../constants/availableOptions';
+import { snackbarTitles } from '../constants/snackbarTitles';
 
 const FormContainer = styled(Container)`
   position: fixed;
@@ -62,7 +63,7 @@ const Row = styled.div`
   }
 `;
 
-const FilterModal = ({ handleClose, setFilters, filters }) => {
+const FilterModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
   const methods = useForm();
 
   useEffect(() => {
@@ -73,8 +74,8 @@ const FilterModal = ({ handleClose, setFilters, filters }) => {
 
   const handleSubmit = (data) => {
     const filteredData = filterData(data);
-    console.log(data);
     setFilters(filteredData);
+    handleSnackbar(snackbarTitles.filterAdded);
     handleClose();
   };
   

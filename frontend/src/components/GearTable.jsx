@@ -339,6 +339,7 @@ const GearTable = () => {
           handleClose={handleCloseFilter}
           setFilters={setFilters}
           filters={filters}
+          handleSnackbar={handleSnackbar}
         />
       </Modal>
     </>

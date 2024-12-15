@@ -11,5 +11,6 @@
     statusChangeFailed: { message: "Не удалось изменить статус инвентаря", variant : "error" },
     gearRecover: { message: "Инвентарь восстановлен успешно", variant : "success" },
     gearRecoverFailed: { message: "Не удалось восстановить инвентарь", variant : "error" },
+    filterAdded: { message: "Фильтры добавлены успешно", variant : "success" },
   };
   
