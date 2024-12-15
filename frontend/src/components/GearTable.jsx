@@ -1,30 +1,30 @@
 ﻿import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSnackbar } from 'notistack';
 
 import { 
   Table, 
   TableBody, 
   Paper, 
-  TableHead, 
+  TableHead,
+  Modal,
   TableCell as MuiTableCell, 
   TableContainer as MuiTableContainer, 
   TableRow as MuiTableRow, 
   IconButton as MuiIconButton, 
   TablePagination as MuiTablePagination,
-  Modal,
 } from '@mui/material';
 
 import { Delete, Done, Close, QrCode } from '@mui/icons-material';
 
 import { useGetAllGearsQuery, useUpdateGearMutation } from '../api/apiGear';
+import { snackbarTitles } from '../constants/snackbarTitles';
+import { createSnackbarHandler } from '../utils/showSnackbar';
 import CircleLoader from './CircleLoader';
 import ErrorMessage from './ErrorMessage';
 import GearDetailsModal from './GearDetailsModal';
-import { useSnackbar } from 'notistack';
-import { createSnackbarHandler } from '../utils/showSnackbar';
 import StatusChangeModal from './StatusChangeModal';
 import BarcodeGenerator from './BarcodeGenerator';
-import { snackbarTitles } from '../constants/snackbarTitles';
 import FilterModal from './FilterModal';
 import FilterActions from './FilterActions';
 

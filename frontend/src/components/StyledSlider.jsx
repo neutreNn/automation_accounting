@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import styled from 'styled-components';
-import { Typography, Slider } from '@mui/material';
-import { Box } from '@mui/system';
 import { useController, useFormContext } from 'react-hook-form';
+import { Typography, Slider } from '@mui/material';
+import { Box as MuiBox } from '@mui/system';
 
-const StyledSliderWrapper = styled(Box)`
+const StyledSliderWrapper = styled(MuiBox)`
   & .MuiSlider-root {
     color: white;
   }

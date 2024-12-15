@@ -1,20 +1,19 @@
 ﻿import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Container, Typography } from '@mui/material';
-import { useGetOneGearQuery, useUpdateGearMutation } from '../api/apiGear';
 import { FormProvider, useForm } from 'react-hook-form';
+import { Container as MuiContainer, Typography } from '@mui/material';
+import { ArrowBackIos as ArrowBackIosIcon, Edit as EditIcon } from '@mui/icons-material';
+import { useGetOneGearQuery, useUpdateGearMutation } from '../api/apiGear';
+import { categoryOptions } from '../constants/categoryOptions';
+import { snackbarTitles } from '../constants/snackbarTitles';
 import CustomButton from './CustomButton';
 import StyledTextField from './StyledTextField';
 import StyledSelectField from './StyledSelectField';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import EditIcon from '@mui/icons-material/Edit';
-import { categoryOptions } from '../constants/categoryOptions';
 import ErrorMessage from './ErrorMessage';
 import CircleLoader from './CircleLoader';
 import HistorySection from './HistorySection';
-import { snackbarTitles } from '../constants/snackbarTitles';
 
-const FormContainer = styled(Container)`
+const FormContainer = styled(MuiContainer)`
   position: fixed;
   top: 50%;
   left: 50%;

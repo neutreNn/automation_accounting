@@ -1,20 +1,19 @@
 ﻿import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Typography } from '@mui/material';
-import StyledTextField from './StyledTextField';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Container } from '@mui/system';
-import CustomButton from './CustomButton';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import StyledSlider from './StyledSlider';
-import StyledSelectField from './StyledSelectField';
+import { Typography } from '@mui/material';
+import { Container as MuiContainer } from '@mui/system';
+import { DeleteForever as DeleteForeverIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { categoryOptions } from '../constants/categoryOptions';
-import { filterData } from '../utils/filterData';
 import { availableOptions } from '../constants/availableOptions';
 import { snackbarTitles } from '../constants/snackbarTitles';
+import { filterData } from '../utils/filterData';
+import StyledTextField from './StyledTextField';
+import CustomButton from './CustomButton';
+import StyledSlider from './StyledSlider';
+import StyledSelectField from './StyledSelectField';
 
-const FormContainer = styled(Container)`
+const FormContainer = styled(MuiContainer)`
   position: fixed;
   top: 50%;
   left: 50%;

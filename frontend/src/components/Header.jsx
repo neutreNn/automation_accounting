@@ -1,17 +1,36 @@
 ﻿import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSnackbar } from 'notistack';
 import { Link as RouterLink } from 'react-router-dom';
 import { Modal } from '@mui/material';
+
+import { 
+  Delete as DeleteIcon, 
+  Inventory as InventoryIcon, 
+  Insights as InsightsIcon, 
+  Dvr as DvrIcon, 
+  Logout as MuiLogoutIcon, 
+  Add as AddIcon 
+} from '@mui/icons-material';
+
+import { createSnackbarHandler } from '../utils/showSnackbar';
 import AddGear from './AddGear';
 import CustomButton from './CustomButton';
-import { useSnackbar } from 'notistack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import InsightsIcon from '@mui/icons-material/Insights';
-import DvrIcon from '@mui/icons-material/Dvr';
-import MuiLogoutIcon from '@mui/icons-material/Logout';
-import AddIcon from '@mui/icons-material/Add';
-import { createSnackbarHandler } from '../utils/showSnackbar';
+
+const NavLink = styled(RouterLink)`
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const LogoutIcon = styled(MuiLogoutIcon)`
+  color: #fff;
+`;
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -55,21 +74,6 @@ const NavLinkContent = styled.div`
   align-items: center;
   gap: 8px;
   font-size: 15px;
-`;
-
-const NavLink = styled(RouterLink)`
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
-const LogoutIcon = styled(MuiLogoutIcon)`
-  color: #fff;
 `;
 
 const ButtonsContainer = styled.div`

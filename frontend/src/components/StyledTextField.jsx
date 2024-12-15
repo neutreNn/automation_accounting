@@ -1,22 +1,9 @@
 ﻿import React from 'react';
 import styled from 'styled-components';
-import { TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
+import { TextField as MuiTextField } from '@mui/material';
 
-const FieldWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
-const ErrorMessage = styled.div`
-  height: 20px; /* Фиксированная высота для предотвращения увеличения */
-  font-size: 12px;
-  color: red;
-  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
-`;
-
-const CustomTextField = styled(TextField)`
+const CustomTextField = styled(MuiTextField)`
   & .MuiInputBase-root {
     background-color: #161617;
     border: 1px solid #222223;
@@ -71,6 +58,18 @@ const CustomTextField = styled(TextField)`
   }
 `;
 
+const FieldWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const ErrorMessage = styled.div`
+  height: 20px; /* Фиксированная высота для предотвращения увеличения */
+  font-size: 12px;
+  color: red;
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+`;
 
 function StyledTextField({ name, label, requiredText, ...props }) {
   const {

@@ -3,17 +3,6 @@ import styled from 'styled-components';
 import { Close } from '@mui/icons-material';
 import { IconButton as MuiIconButton } from '@mui/material';
 
-const FilterBlock = styled.div`
-  background-color: #292929;
-  color: white;
-  padding-left: 10px;
-  border-radius: 25px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 12px;
-  box-sizing: border-box;
-`;
-
 const IconButton = styled(MuiIconButton)`
   display: flex;
   justify-content: center;
@@ -36,6 +25,16 @@ const IconButton = styled(MuiIconButton)`
   }
 `;
 
+const FilterBlock = styled.div`
+  background-color: #292929;
+  color: white;
+  padding-left: 10px;
+  border-radius: 25px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  box-sizing: border-box;
+`;
 
 const labelMap = {
   category: 'Категория',

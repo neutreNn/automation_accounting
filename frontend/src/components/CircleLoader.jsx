@@ -1,6 +1,6 @@
 ﻿import React from 'react';
-import { CircularProgress as MuiCircularProgress } from '@mui/material';
 import styled from 'styled-components';
+import { CircularProgress as MuiCircularProgress } from '@mui/material';
 
 const CircularProgress = styled(MuiCircularProgress)`
     color: white !important;

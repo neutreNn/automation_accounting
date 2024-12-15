@@ -1,13 +1,13 @@
 ﻿import React from 'react';
 import styled from 'styled-components';
-import { Box, Typography as MuiTypography } from '@mui/material';
+import { Box as MuiBox, Typography as MuiTypography } from '@mui/material';
 
-const FooterContainer = styled(Box)`
+const FooterContainer = styled(MuiBox)`
   border-top: 1px solid #ccc;
   width: 100%;
 `;
 
-const FooterContent = styled(Box)`
+const FooterContent = styled(MuiBox)`
   display: flex;
   justify-content: center;
   padding: 10px 20px;

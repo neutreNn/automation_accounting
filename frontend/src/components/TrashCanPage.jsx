@@ -1,32 +1,34 @@
 ﻿import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSnackbar } from 'notistack';
 
 import { 
   Table, 
   TableBody, 
   Paper, 
   TableHead, 
+  Modal,
   TableCell as MuiTableCell, 
   TableContainer as MuiTableContainer, 
   TableRow as MuiTableRow, 
   IconButton as MuiIconButton, 
   TablePagination as MuiTablePagination,
-  Modal,
 } from '@mui/material';
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import UndoIcon from '@mui/icons-material/Undo';
-import QrCode from '@mui/icons-material/QrCode';
+import { 
+  QrCode,
+  DeleteForever as DeleteForeverIcon, 
+  Undo as UndoIcon, 
+} from '@mui/icons-material';
 
 import { useGetAllGearsQuery, useUpdateGearMutation } from '../api/apiGear';
+import { createSnackbarHandler } from '../utils/showSnackbar';
+import { snackbarTitles } from '../constants/snackbarTitles';
 import CircleLoader from './CircleLoader';
 import ErrorMessage from './ErrorMessage';
 import GearDetailsModal from './GearDetailsModal';
-import { useSnackbar } from 'notistack';
-import { createSnackbarHandler } from '../utils/showSnackbar';
 import DeleteGearModal from './DeleteGearModal';
 import BarcodeGenerator from './BarcodeGenerator';
-import { snackbarTitles } from '../constants/snackbarTitles';
 import FilterActions from './FilterActions';
 import FilterModal from './FilterModal';
 

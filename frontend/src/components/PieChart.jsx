@@ -1,8 +1,19 @@
 ﻿import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography as MuiTypography } from '@mui/material';
 import { PieChart, Pie, Cell } from 'recharts';
 import styled from 'styled-components';
 import { categoryOptions } from '../constants/categoryOptions';
+
+const StyledTypographyBold = styled(MuiTypography)`
+  color: #ffffffcc;
+  font-weight: bold;
+  margin-bottom: 4px;
+`;
+
+const StyledTypographyCaption = styled(MuiTypography)`
+  color: #ffffff80;
+  font-size: 12px;
+`;
 
 const Container = styled.div`
   border: 1px solid #343435;
@@ -19,17 +30,6 @@ const Container = styled.div`
 const Header = styled.div`
   text-align: center;
   margin-bottom: 16px;
-`;
-
-const StyledTypographyBold = styled(Typography)`
-  color: #ffffffcc;
-  font-weight: bold;
-  margin-bottom: 4px;
-`;
-
-const StyledTypographyCaption = styled(Typography)`
-  color: #ffffff80;
-  font-size: 12px;
 `;
 
 const ChartWrapper = styled.div`
@@ -133,9 +133,9 @@ const InventoryPieChart = ({ gears }) => {
           {filteredData.map((entry, index) => (
             <LegendItem key={index}>
               <LegendColorBox color={COLORS[index % COLORS.length]} />
-              <Typography variant="caption" sx={{ color: '#fff', fontSize: '12px' }}>
+              <MuiTypography variant="caption" sx={{ color: '#fff', fontSize: '12px' }}>
                 {entry.name}
-              </Typography>
+              </MuiTypography>
             </LegendItem>
           ))}
         </LegendWrapper>

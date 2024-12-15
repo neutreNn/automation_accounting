@@ -4,20 +4,6 @@ import { FilterList } from '@mui/icons-material';
 import { IconButton as MuiIconButton } from '@mui/material';
 import FilterDeleteButton from './FilterDeleteButton';
 
-const FilterWrapper = styled.div`
-  background-color: #161b22;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-`;
-
-const FiltersList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-left: 8px;
-`;
-
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
   background-color: #292929;
@@ -30,6 +16,20 @@ const IconButton = styled(MuiIconButton)`
       background-color: #626d8a;
     }
   }
+`;
+
+const FilterWrapper = styled.div`
+  background-color: #161b22;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const FiltersList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: 8px;
 `;
 
 function FilterActions({ filters, setFilters, handleOpenFilter }) {

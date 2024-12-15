@@ -1,16 +1,15 @@
 ﻿import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Typography } from '@mui/material';
-import StyledTextField from './StyledTextField';
 import { FormProvider, useForm } from 'react-hook-form';
+import { DeleteForever as DeleteForeverIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
+import { Typography } from '@mui/material';
+import { Container as MuiContaine } from '@mui/system';
 import { useRemoveGearMutation } from '../api/apiGear';
-import { Container } from '@mui/system';
-import CustomButton from './CustomButton';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { snackbarTitles } from '../constants/snackbarTitles';
+import StyledTextField from './StyledTextField';
+import CustomButton from './CustomButton';
 
-const FormContainer = styled(Container)`
+const FormContainer = styled(MuiContaine)`
   position: fixed;
   top: 50%;
   left: 50%;

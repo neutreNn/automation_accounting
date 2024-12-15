@@ -1,8 +1,19 @@
 ﻿import React from 'react'; 
-import { Typography } from '@mui/material';
-import { AreaChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Area, Tooltip } from 'recharts';
 import styled from 'styled-components';
+import { Typography as MuiTypography } from '@mui/material';
+import { AreaChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Area, Tooltip } from 'recharts';
 import { transformDataLineChart } from '../utils/transformDataLineChart';
+
+const StyledTypographyBold = styled(MuiTypography)`
+  color: #ffffffcc;
+  font-weight: bold;
+  margin-bottom: 4px;
+`;
+
+const StyledTypographyCaption = styled(MuiTypography)`
+  color: #ffffff80;
+  font-size: 12px;
+`;
 
 const Container = styled.div`
   border: 1px solid #343435;
@@ -31,17 +42,6 @@ const ChartWrapper = styled.div`
 const Header = styled.div`
   text-align: center;
   margin-bottom: 16px;
-`;
-
-const StyledTypographyBold = styled(Typography)`
-  color: #ffffffcc;
-  font-weight: bold;
-  margin-bottom: 4px;
-`;
-
-const StyledTypographyCaption = styled(Typography)`
-  color: #ffffff80;
-  font-size: 12px;
 `;
 
 const InventoryLineChart = ({ gears }) => {

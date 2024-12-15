@@ -1,22 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
 
-const FieldWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
+import { 
+  MenuItem, InputLabel, 
+  Select as MuiSelect, 
+  FormControl as MuiFormControl,
+} from '@mui/material';
 
-const ErrorMessage = styled.div`
-  height: 20px;
-  font-size: 12px;
-  color: red;
-  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
-`;
-
-const CustomFormControl = styled(FormControl)`
+const CustomFormControl = styled(MuiFormControl)`
   & .MuiInputBase-root {
     background-color: #161617;
     border: 1px solid #222223;
@@ -45,7 +37,7 @@ const CustomFormControl = styled(FormControl)`
   }
 `;
 
-const CustomSelect = styled(Select)`
+const CustomSelect = styled(MuiSelect)`
   & .MuiSelect-select {
     background-color: #161617;
     color: #fff;
@@ -53,6 +45,19 @@ const CustomSelect = styled(Select)`
     display: flex;
     align-items: center;
   }
+`;
+
+const FieldWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const ErrorMessage = styled.div`
+  height: 20px;
+  font-size: 12px;
+  color: red;
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
 `;
 
 function StyledSelectField({ name, label, requiredText, options, ...props }) {

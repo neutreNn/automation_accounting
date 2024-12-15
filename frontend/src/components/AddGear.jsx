@@ -1,17 +1,16 @@
 ﻿import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Container, Typography } from '@mui/material';
+import { Container as MuiContainer, Typography } from '@mui/material';
+import { Add as AddIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
+import { useCreateGearMutation } from '../api/apiGear';
 import StyledTextField from './StyledTextField';
 import CustomButton from './CustomButton';
-import AddIcon from '@mui/icons-material/Add';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StyledSelectField from './StyledSelectField';
-import { useCreateGearMutation } from '../api/apiGear';
 import { categoryOptions } from '../constants/categoryOptions';
 import { snackbarTitles } from '../constants/snackbarTitles';
 
-const FormContainer = styled(Container)`
+const FormContainer = styled(MuiContainer)`
   position: fixed;
   top: 50%;
   left: 50%;

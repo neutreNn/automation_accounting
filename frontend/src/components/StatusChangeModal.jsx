@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Typography } from '@mui/material';
-import StyledTextField from './StyledTextField';
 import { FormProvider, useForm } from 'react-hook-form';
+import { Typography } from '@mui/material';
+import { Edit as EditIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
+import { Container as MuiContainer } from '@mui/system';
 import { useUpdateGearMutation } from '../api/apiGear';
-import { Container } from '@mui/system';
-import CustomButton from './CustomButton';
-import EditIcon from '@mui/icons-material/Edit';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { formatDate } from '../utils/formatDate';
 import { snackbarTitles } from '../constants/snackbarTitles';
+import StyledTextField from './StyledTextField';
+import CustomButton from './CustomButton';
 
-const FormContainer = styled(Container)`
+const FormContainer = styled(MuiContainer)`
   position: fixed;
   top: 50%;
   left: 50%;

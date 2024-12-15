@@ -1,13 +1,12 @@
 ﻿import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Typography } from '@mui/material';
-import { Container } from '@mui/system';
-import CustomButton from './CustomButton';
-import DownloadIcon from '@mui/icons-material/Download';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import JsBarcode from "jsbarcode";
+import { Typography } from '@mui/material';
+import { Download as DownloadIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
+import { Container as MuiContainer } from '@mui/system';
+import CustomButton from './CustomButton';
 
-const FormContainer = styled(Container)`
+const FormContainer = styled(MuiContainer)`
   position: fixed;
   top: 50%;
   left: 50%;
