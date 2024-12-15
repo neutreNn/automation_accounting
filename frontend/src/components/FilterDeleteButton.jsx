@@ -15,18 +15,27 @@ const FilterBlock = styled.div`
 `;
 
 const IconButton = styled(MuiIconButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 8px;
   background-color: #292929;
   transition: background-color 0.3s ease;
+  height: 24px;
+  width: 24px;
+  
   .MuiSvgIcon-root {
     color: white;
+    font-size: 16px; /* Настройте размер иконки, если нужно */
   }
+  
   &.MuiButtonBase-root {
     &:hover {
       background-color: #626d8a;
     }
   }
 `;
+
 
 const labelMap = {
   category: 'Категория',
@@ -46,7 +55,7 @@ function FilterDeleteButton({ label, value, onRemove }) {
     if (Array.isArray(value)) {
       return `от ${value[0]} до ${value[1]}`;
     }
-    return value;
+    return `${value}`;
   };
 
   const translatedLabel = labelMap[label] || label;
