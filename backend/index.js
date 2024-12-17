@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import cors from 'cors'
 
-import { registerValidation, loginValidation, gearCreateValidation } from './validations.js';
+import { registerValidation, loginValidation, gearCreateValidation, workerCreateValidation } from './validations.js';
 
 import { checkAuth, handleValidationErrors } from './utils/index.js'
-import { UserController, GearController } from './controllers/index.js';
+import { UserController, GearController, WorkerController } from './controllers/index.js';
 
 mongoose.connect(
     'mongodb+srv://vanibro1:vanibro1@cluster0.ynxp0dt.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0',
@@ -43,6 +43,12 @@ app.get('/gears/:id', GearController.getOne);
 app.post('/gears', checkAuth, gearCreateValidation, handleValidationErrors, GearController.create);
 app.delete('/gears/:id', checkAuth, handleValidationErrors, GearController.remove);
 app.patch('/gears/:id', checkAuth, handleValidationErrors, GearController.update);
+
+app.get('/workers', WorkerController.getAll);
+app.get('/workers/:id', WorkerController.getOne);
+app.post('/workers', checkAuth, workerCreateValidation, handleValidationErrors, WorkerController.create);
+app.delete('/workers/:id', checkAuth, handleValidationErrors, WorkerController.remove);
+app.patch('/workers/:id', checkAuth, handleValidationErrors, WorkerController.update);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({

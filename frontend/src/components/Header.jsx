@@ -10,7 +10,8 @@ import {
   Insights as InsightsIcon, 
   Dvr as DvrIcon, 
   Logout as MuiLogoutIcon, 
-  Add as AddIcon 
+  Add as AddIcon, 
+  Person as PersonIcon,
 } from '@mui/icons-material';
 
 import { createSnackbarHandler } from '../utils/showSnackbar';
@@ -103,6 +104,12 @@ function Header() {
               <NavLinkContent>
                 <InventoryIcon />
                 Инвентарь
+              </NavLinkContent>
+            </NavLink>
+            <NavLink to="/workers">
+              <NavLinkContent>
+                <PersonIcon />
+                Сотрудники
               </NavLinkContent>
             </NavLink>
             <NavLink to="/statistics">
