@@ -1,7 +1,7 @@
 ﻿import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSnackbar } from 'notistack';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Modal } from '@mui/material';
 
 import { 
@@ -17,6 +17,7 @@ import {
 import { createSnackbarHandler } from '../utils/showSnackbar';
 import AddGear from './AddGear';
 import CustomButton from './CustomButton';
+import AddWorker from './AddWorker';
 
 const NavLink = styled(RouterLink)`
   color: #fff;
@@ -83,12 +84,27 @@ const ButtonsContainer = styled.div`
 `;
 
 function Header() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const { enqueueSnackbar } = useSnackbar();
   const handleSnackbar = createSnackbarHandler(enqueueSnackbar);
+
+  const location = useLocation();
+
+  const getModalContent = () => {
+    switch (location.pathname) {
+      case '/':
+        return <AddGear handleClose={handleCloseModal} handleSnackbar={handleSnackbar} />;
+      case '/workers':
+        return <AddWorker handleClose={handleCloseModal} handleSnackbar={handleSnackbar} />;
+      default:
+        return <div>Нет доступного модального окна для данного пути</div>;
+    }
+  };
+
+  const isAddButtonVisible = location.pathname === '/' || location.pathname === '/workers';
 
   return (
     <>
@@ -133,9 +149,11 @@ function Header() {
           </Nav>
 
           <ButtonsContainer>
-            <CustomButton onClick={handleOpen}>
-              <AddIcon />
-            </CustomButton>
+            {isAddButtonVisible && (
+              <CustomButton onClick={handleOpenModal}>
+                <AddIcon />
+              </CustomButton>
+            )}
             <CustomButton>
               <LogoutIcon />
             </CustomButton>
@@ -143,12 +161,12 @@ function Header() {
         </HeaderWrapper>
       </HeaderContainer>
       <Modal
-          open={open}
-          onClose={handleClose}
+          open={openModal}
+          onClose={handleCloseModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-        <AddGear handleClose={handleClose} handleSnackbar={handleSnackbar} />
+        {getModalContent()}
       </Modal>
     </>
   );
