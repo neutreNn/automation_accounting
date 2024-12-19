@@ -25,11 +25,16 @@ const WorkerSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        phone_number: {
+            type: String,
+            required: true,
+            unique: true,
+        },
         post: {
             type: String,
             required: true,
         },
-        history: {
+        inventory: {
             type: Array,
             default: [],
         },

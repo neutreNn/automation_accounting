@@ -4,10 +4,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { DeleteForever as DeleteForeverIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { Container as MuiContaine } from '@mui/system';
-import { useRemoveGearMutation } from '../api/apiGear';
 import { snackbarTitles } from '../constants/snackbarTitles';
 import StyledTextField from './StyledTextField';
 import CustomButton from './CustomButton';
+import { useRemoveWorkerMutation } from '../api/apiWorker';
 
 const FormContainer = styled(MuiContaine)`
   position: fixed;
@@ -49,23 +49,22 @@ const ButtonSectionWrapper = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-const DeleteGearModal = ({ handleSnackbar, handleClose, selectedGear }) => {
+const DeleteWorkerModal = ({ handleSnackbar, handleClose, selectedWorker }) => {
   const methods = useForm();
-  const [removeGear] = useRemoveGearMutation();
+  const [removeWorker] = useRemoveWorkerMutation();
 
   useEffect(() => {
     methods.reset({
-      name: selectedGear.name,
-      serial_number: selectedGear.serial_number,
-      inventory_number: selectedGear.inventory_number,
-      year_of_output: selectedGear.year_of_output,
-      price: selectedGear.price,
+      fio: selectedWorker.fio,
+      employee_number: selectedWorker.employee_number,
+      passport: selectedWorker.passport,
+      post: selectedWorker.post,
     });
   }, []);
 
 
   const handleSubmit = () => {
-    removeGear(selectedGear._id)
+    removeWorker(selectedWorker._id)
       .unwrap()
       .then(() => {
         handleSnackbar(snackbarTitles.gearDeleted);
@@ -80,38 +79,33 @@ const DeleteGearModal = ({ handleSnackbar, handleClose, selectedGear }) => {
   return (
     <FormContainer maxWidth="sm">
       <Typography variant="h5" component="h1" color="white" gutterBottom>
-        Уверенны что хотите удалить инвентарь?
+        Уверенны что хотите удалить сотрудника?
       </Typography>
       <FormSectionWrapper>
         <FormProvider {...methods}>
           <Form 
             onSubmit={methods.handleSubmit(handleSubmit)}
-            id="delete-gear"
-            name="delete-gear"
+            id="delete-worker"
+            name="delete-worker"
           >
             <StyledTextField
-                name="name"
-                label="Название"
+                name="fio"
+                label="ФИО"
                 disabled
             />
             <StyledTextField
-              name="serial_number"
-              label="Серийный номер"
+              name="employee_number"
+              label="Табельный номер"
               disabled
             />
             <StyledTextField
-              name="inventory_number"
-              label="Инвентарный номер"
+              name="passport"
+              label="Паспорт"
               disabled
             />
             <StyledTextField
-              name="year_of_output"
-              label="Год вывода"
-              disabled
-            />
-            <StyledTextField
-              name="price"
-              label="Цена"
+              name="post"
+              label="Должность"
               disabled
             />
           </Form>
@@ -122,7 +116,7 @@ const DeleteGearModal = ({ handleSnackbar, handleClose, selectedGear }) => {
           <ArrowBackIosIcon />
           Назад
         </CustomButton>
-        <CustomButton type="submit" form="delete-gear">
+        <CustomButton type="submit" form="delete-worker">
           <DeleteForeverIcon />
           Удалить
         </CustomButton>
@@ -131,4 +125,4 @@ const DeleteGearModal = ({ handleSnackbar, handleClose, selectedGear }) => {
   );
 };
 
-export default DeleteGearModal;
+export default DeleteWorkerModal;

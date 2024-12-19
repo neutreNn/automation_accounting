@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { SnackbarProvider } from 'notistack'
 import ChartsPage from './components/ChartsPage';
 import TrashCanPage from './components/TrashCanPage';
+import WorkersPage from './components/WorkersPage';
 
 const AppContainer = styled.div`
   display: flex;
@@ -27,6 +28,7 @@ function App() {
           <MainContent>
             <Routes>
               <Route path="/" element={<GearTable />} />
+              <Route path="/workers" element={<WorkersPage />} />
               <Route path="/statistics" element={<ChartsPage />} />
               <Route path="/logs" element={<p>Логи</p>} />
               <Route path="/trash-can" element={<TrashCanPage />} />

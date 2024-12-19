@@ -31,5 +31,6 @@ export const workerCreateValidation = [
     body('employee_number', 'Введите табельный номер').isLength({ min: 5 }).isString(),
     body('passport', 'Введите данные паспорта').isLength({ max: 11, min: 11 }).isString(),
     body('inn_number', 'Введите ИНН').isLength({ max: 12, min: 12 }).isString(),
+    body('phone_number', 'Введите номер телефона').isLength({ max: 12, min: 12 }).isString(),
     body('post', 'Введите должность').isString(),
 ];

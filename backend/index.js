@@ -39,13 +39,13 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 
 app.get('/gears', GearController.getAll);
-app.get('/gears/:id', GearController.getOne);
+app.get('/gears/:id', checkAuth, GearController.getOne);
 app.post('/gears', checkAuth, gearCreateValidation, handleValidationErrors, GearController.create);
 app.delete('/gears/:id', checkAuth, handleValidationErrors, GearController.remove);
 app.patch('/gears/:id', checkAuth, handleValidationErrors, GearController.update);
 
 app.get('/workers', WorkerController.getAll);
-app.get('/workers/:id', WorkerController.getOne);
+app.get('/workers/:id', checkAuth, WorkerController.getOne);
 app.post('/workers', checkAuth, workerCreateValidation, handleValidationErrors, WorkerController.create);
 app.delete('/workers/:id', checkAuth, handleValidationErrors, WorkerController.remove);
 app.patch('/workers/:id', checkAuth, handleValidationErrors, WorkerController.update);

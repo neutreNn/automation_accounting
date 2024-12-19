@@ -1,7 +1,7 @@
 ﻿import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const apiGear = createApi({
-  reducerPath: 'api',
+  reducerPath: 'apiGear',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4444',
     prepareHeaders: (headers) => {

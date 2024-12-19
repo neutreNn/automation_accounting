@@ -3,7 +3,7 @@ import WorkerModel from '../models/Worker.js'
 export const getAll = async (req, res) => {
 
     try {
-        const workers = await WorkerModel.find(filters);
+        const workers = await WorkerModel.find();
 
         res.json(workers);
     } catch (err) {
@@ -73,6 +73,8 @@ export const update = async (req, res) => {
                 passport: req.body.passport,
                 inn_number: req.body.inn_number,
                 post: req.body.post,
+                phone_number: req.body.phone_number,
+                inventory: req.body.inventory,
             },
         );
 
@@ -97,6 +99,8 @@ export const create = async (req, res) => {
             passport: req.body.passport,
             inn_number: req.body.inn_number,
             post: req.body.post,
+            phone_number: req.body.phone_number,
+            inventory: req.body.inventory,
         });
 
         const worker = await doc.save();

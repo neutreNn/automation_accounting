@@ -12,5 +12,9 @@
     gearRecover: { message: "Инвентарь восстановлен успешно", variant : "success" },
     gearRecoverFailed: { message: "Не удалось восстановить инвентарь", variant : "error" },
     filterAdded: { message: "Фильтры добавлены успешно", variant : "success" },
+    workerUpdated: { message: "Сотрудник редактирован", variant : "success" },
+    workerUpdateFailed: { message: "Не удалось редактировать сотрудника", variant : "error" },
+    workerDeleted: { message: "Сотрудник успешно удалён", variant : "success" },
+    workerDeleteFailed: { message: "Не удалось удалить сотрудника", variant : "error" },
   };
   
