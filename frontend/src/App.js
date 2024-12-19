@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import GearTable from './components/GearTable';
 import styled from 'styled-components';
 import { SnackbarProvider } from 'notistack'
 import ChartsPage from './components/ChartsPage';
 import TrashCanPage from './components/TrashCanPage';
 import WorkersPage from './components/WorkersPage';
+import GearPage from './components/GearPage';
 
 const AppContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ function App() {
           <Header />
           <MainContent>
             <Routes>
-              <Route path="/" element={<GearTable />} />
+              <Route path="/" element={<GearPage />} />
               <Route path="/workers" element={<WorkersPage />} />
               <Route path="/statistics" element={<ChartsPage />} />
               <Route path="/logs" element={<p>Логи</p>} />

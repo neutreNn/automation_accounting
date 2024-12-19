@@ -117,7 +117,7 @@ const CategoryText = styled.div`
   box-sizing: border-box;
 `;
 
-const GearTable = () => {
+const GearPage = () => {
   const [filters, setFilters] = useState({});
   const { data: gears, isLoading, isError } = useGetAllGearsQuery({
     trashCan: false,
@@ -346,4 +346,4 @@ const GearTable = () => {
   );
 };
 
-export default GearTable;
+export default GearPage;
