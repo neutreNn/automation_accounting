@@ -3,10 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Container as MuiContainer, Typography } from '@mui/material';
 import { Add as AddIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
-import { useCreateGearMutation } from '../api/apiGear';
 import StyledTextField from './StyledTextField';
 import CustomButton from './CustomButton';
 import { snackbarTitles } from '../constants/snackbarTitles';
+import { useCreateWorkerMutation } from '../api/apiWorker';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;
@@ -59,7 +59,7 @@ const ButtonSectionWrapper = styled.div`
 
 function AddWorker({handleClose, handleSnackbar}) {
   const methods = useForm();
-  const [createWorker] = useCreateGearMutation();
+  const [createWorker] = useCreateWorkerMutation();
 
   const handleSubmit = (formData) => {
     createWorker(formData)
