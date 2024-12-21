@@ -2,8 +2,21 @@ import WorkerModel from '../models/Worker.js'
 
 export const getAll = async (req, res) => {
 
+    const filters = { ...req.query };
+
+    if (filters.date_of_birth) {
+        const [minYear, maxYear] = filters.date_of_birth.split(',').map(Number);
+        const startDate = new Date(minYear, 0, 1);
+        const endDate = new Date(maxYear, 11, 31, 23, 59, 59, 999);
+    
+        filters.date_of_birth = {
+            $gte: startDate,
+            $lte: endDate,
+        };
+    }
+
     try {
-        const workers = await WorkerModel.find();
+        const workers = await WorkerModel.find(filters);
 
         res.json(workers);
     } catch (err) {

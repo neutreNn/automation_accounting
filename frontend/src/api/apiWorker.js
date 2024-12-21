@@ -16,7 +16,8 @@ const apiWorker = createApi({
   endpoints: (builder) => ({
     getAllWorkers: builder.query({
       query: (filters) => {
-        return `/workers`;
+        const queryString = new URLSearchParams(filters).toString();
+        return `/workers?${queryString}`;
       },
       providesTags: ['Workers'],
     }),

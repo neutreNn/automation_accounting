@@ -27,7 +27,7 @@ export const gearCreateValidation = [
 
 export const workerCreateValidation = [
     body('fio', 'Введите ФИО работника').isLength({ min: 5 }).isString(),
-    body('date_of_birth', 'Введите дату рождения').isString(),
+    body('date_of_birth', 'Введите дату рождения').isDate(),
     body('employee_number', 'Введите табельный номер').isLength({ min: 5 }).isString(),
     body('passport', 'Введите данные паспорта').isLength({ max: 11, min: 11 }).isString(),
     body('inn_number', 'Введите ИНН').isLength({ max: 12, min: 12 }).isString(),

@@ -20,11 +20,12 @@ import { Delete } from '@mui/icons-material';
 import { createSnackbarHandler } from '../utils/showSnackbar';
 import CircleLoader from './CircleLoader';
 import ErrorMessage from './ErrorMessage';
-import FilterModal from './FilterModal';
+import FilterWorkerModal from './FilterWorkerModal';
 import FilterActions from './FilterActions';
 import { useGetAllWorkersQuery } from '../api/apiWorker';
 import WorkersDetailsModal from './WorkersDetailsModal';
 import DeleteWorkerModal from './DeleteWorkerModal';
+import { formatDate } from '../utils/formatDate';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -110,7 +111,7 @@ const CategoryText = styled.div`
 
 const WorkersPage = () => {
   const [filters, setFilters] = useState({});
-  const { data: workers, isLoading, isError } = useGetAllWorkersQuery();
+  const { data: workers, isLoading, isError } = useGetAllWorkersQuery({...filters});
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -170,7 +171,7 @@ const WorkersPage = () => {
               <StyledTableHeaderCell>Табельный номер</StyledTableHeaderCell>
               <StyledTableHeaderCell>Дата рождения</StyledTableHeaderCell>
               <StyledTableHeaderCell>Паспорт</StyledTableHeaderCell>
-              <StyledTableHeaderCell>ИНН</StyledTableHeaderCell>
+              <StyledTableHeaderCell>Номер телефона</StyledTableHeaderCell>
               <StyledTableHeaderCell>Должность</StyledTableHeaderCell>
               <StyledTableHeaderCell>Действия</StyledTableHeaderCell>
             </TableRow>
@@ -192,13 +193,13 @@ const WorkersPage = () => {
                   <CategoryText>{worker.employee_number}</CategoryText>
                 </StyledTableCell>
                 <StyledTableCell>
-                  {worker.date_of_birth}
+                  {formatDate(worker.date_of_birth, true)}
                 </StyledTableCell>
                 <StyledTableCell>
                   {worker.passport}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {worker.inn_number}
+                  {worker.phone_number}
                 </StyledTableCell>
                 <StyledTableCell>
                   {worker.post}
@@ -249,7 +250,7 @@ const WorkersPage = () => {
         aria-labelledby="modal-modal-title4"
         aria-describedby="modal-modal-description4"
       >
-        <FilterModal
+        <FilterWorkerModal
           handleClose={handleCloseFilter}
           setFilters={setFilters}
           filters={filters}

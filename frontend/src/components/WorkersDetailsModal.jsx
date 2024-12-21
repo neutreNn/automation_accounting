@@ -10,6 +10,7 @@ import ErrorMessage from './ErrorMessage';
 import CircleLoader from './CircleLoader';
 import { useGetOneWorkerQuery, useUpdateWorkerMutation } from '../api/apiWorker';
 import InventorySection from './InventorySection';
+import { formatDate } from '../utils/formatDate';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;
@@ -71,7 +72,7 @@ const WorkersDetailsModal = ({ handleClose, selectedWorker, handleSnackbar }) =>
       if (worker) {
         methods.reset({
           fio: worker.fio,
-          date_of_birth: worker.date_of_birth,
+          date_of_birth: formatDate(worker.date_of_birth, true),
           employee_number: worker.employee_number,
           passport: worker.passport,
           inn_number: worker.inn_number,

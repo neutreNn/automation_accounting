@@ -13,6 +13,9 @@
         if (key === "year_of_output" && value[0] === 1950 && value[1] === new Date().getFullYear() + 50) {
           return false;
         }
+        if (key === "date_of_birth" && value[0] === 1950 && value[1] === new Date().getFullYear()) {
+          return false;
+        }
         return value !== "" && value !== undefined;
       })
     );

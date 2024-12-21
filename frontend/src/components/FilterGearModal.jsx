@@ -62,7 +62,7 @@ const Row = styled.div`
   }
 `;
 
-const FilterModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
+const FilterGearModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
   const methods = useForm();
 
   useEffect(() => {
@@ -162,4 +162,4 @@ const FilterModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
   );
 };
 
-export default FilterModal;
+export default FilterGearModal;

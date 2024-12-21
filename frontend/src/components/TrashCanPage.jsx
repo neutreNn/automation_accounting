@@ -30,7 +30,7 @@ import GearDetailsModal from './GearDetailsModal';
 import DeleteGearModal from './DeleteGearModal';
 import BarcodeGenerator from './BarcodeGenerator';
 import FilterActions from './FilterActions';
-import FilterModal from './FilterModal';
+import FilterGearModal from './FilterGearModal';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;
@@ -325,7 +325,7 @@ const TrashCanPage = () => {
         aria-labelledby="modal-modal-title4"
         aria-describedby="modal-modal-description4"
       >
-        <FilterModal
+        <FilterGearModal
           handleClose={handleCloseFilter}
           setFilters={setFilters}
           filters={filters}

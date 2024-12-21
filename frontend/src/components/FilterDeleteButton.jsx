@@ -47,6 +47,13 @@ const labelMap = {
   year_of_input: 'Год ввода',
   year_of_output: 'Год вывода',
   available: 'Доступность',
+  fio: 'ФИО',
+  date_of_birth: 'Дата рождения',
+  employee_number: 'Табельный номер',
+  passport: 'Паспорт',
+  inn_number: 'ИНН',
+  phone_number: 'Номер телефона',
+  post: 'Должность',
 };
 
 function FilterDeleteButton({ label, value, onRemove }) {

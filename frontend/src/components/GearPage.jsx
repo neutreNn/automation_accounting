@@ -25,7 +25,7 @@ import ErrorMessage from './ErrorMessage';
 import GearDetailsModal from './GearDetailsModal';
 import StatusChangeModal from './StatusChangeModal';
 import BarcodeGenerator from './BarcodeGenerator';
-import FilterModal from './FilterModal';
+import FilterGearModal from './FilterGearModal';
 import FilterActions from './FilterActions';
 
 const IconButton = styled(MuiIconButton)`
@@ -335,7 +335,7 @@ const GearPage = () => {
         aria-labelledby="modal-modal-title4"
         aria-describedby="modal-modal-description4"
       >
-        <FilterModal
+        <FilterGearModal
           handleClose={handleCloseFilter}
           setFilters={setFilters}
           filters={filters}
