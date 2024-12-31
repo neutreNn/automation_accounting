@@ -29,9 +29,9 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-        const workerId = req.params.id;
+        const employeeNumber = req.params.employee_number;
 
-        const doc = await WorkerModel.findOne({ _id: workerId });
+        const doc = await WorkerModel.findOne({ employee_number: employeeNumber });
 
         if (!doc) {
             return res.status(404).json({
@@ -50,9 +50,9 @@ export const getOne = async (req, res) => {
 
 export const remove = async (req, res) => {
     try {
-        const workerId = req.params.id;
+        const employeeNumber = req.params.employee_number;
 
-        const doc = await WorkerModel.findOneAndDelete({ _id: workerId });
+        const doc = await WorkerModel.findOneAndDelete({ employee_number: employeeNumber });
 
         if (!doc) {
             return res.status(404).json({
@@ -73,11 +73,11 @@ export const remove = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-        const workerId = req.params.id;
+        const employeeNumber = req.params.employee_number;
         
         await WorkerModel.updateOne(
             {
-                _id: workerId,
+                employee_number: employeeNumber,
             },
             {
                 fio: req.body.fio,

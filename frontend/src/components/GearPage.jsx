@@ -312,7 +312,7 @@ const GearPage = () => {
       >
         <StatusChangeModal 
           handleClose={handleCloseStatusChange} 
-          selectedGear={selectedGear._id}
+          selectedGear={selectedGear}
           availableStatus={selectedGear.available}
           gearHistory={selectedGear.history}
           handleSnackbar={handleSnackbar} 

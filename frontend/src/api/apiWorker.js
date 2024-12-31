@@ -22,8 +22,8 @@ const apiWorker = createApi({
       providesTags: ['Workers'],
     }),
     getOneWorker: builder.query({
-      query: (id) => `/workers/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Workers', id }],
+      query: (employee_number) => `/workers/${employee_number}`,
+      providesTags: (result, error, employee_number) => [{ type: 'Workers', employee_number }],
     }),
     createWorker: builder.mutation({
       query: (data) => ({
@@ -34,26 +34,27 @@ const apiWorker = createApi({
       invalidatesTags: ['Workers'],
     }),
     updateWorker: builder.mutation({
-      query: ({ id, ...data }) => ({
-        url: `/workers/${id}`,
+      query: ({ employee_number, ...data }) => ({
+        url: `/workers/${employee_number}`,
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Workers', id }, 'Workers'],
+      invalidatesTags: (result, error, { employee_number }) => [{ type: 'Workers', employee_number }, 'Workers'],
     }),
     removeWorker: builder.mutation({
-      query: (id) => ({
-        url: `/workers/${id}`,
+      query: (employee_number) => ({
+        url: `/workers/${employee_number}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Workers', id }, 'Workers'],
+      invalidatesTags: (result, error, employee_number) => [{ type: 'Workers', employee_number }, 'Workers'],
     }),
   }),
 });
 
 export const { 
   useGetAllWorkersQuery, 
-  useGetOneWorkerQuery, 
+  useGetOneWorkerQuery,
+  useLazyGetOneWorkerQuery, 
   useCreateWorkerMutation, 
   useUpdateWorkerMutation, 
   useRemoveWorkerMutation 

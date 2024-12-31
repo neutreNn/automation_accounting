@@ -240,7 +240,7 @@ const WorkersPage = () => {
       >
         <WorkersDetailsModal
           handleClose={handlecloseWorkerDetails} 
-          selectedWorker={selectedWorker._id} 
+          selectedWorker={selectedWorker.employee_number}
           handleSnackbar={handleSnackbar}
         />
       </Modal>

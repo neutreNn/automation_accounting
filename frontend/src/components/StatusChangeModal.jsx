@@ -9,6 +9,7 @@ import { formatDate } from '../utils/formatDate';
 import { snackbarTitles } from '../constants/snackbarTitles';
 import StyledTextField from './StyledTextField';
 import CustomButton from './CustomButton';
+import { useLazyGetOneWorkerQuery, useUpdateWorkerMutation } from '../api/apiWorker';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;
@@ -53,7 +54,9 @@ const ButtonSectionWrapper = styled.div`
 const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availableStatus, gearHistory }) => {
   const methods = useForm();
   const [updateGear] = useUpdateGearMutation();
-
+  const [updateWorker] = useUpdateWorkerMutation();
+  const [getLazyWorker] = useLazyGetOneWorkerQuery();
+ 
   useEffect(() => {
     const todayDate = formatDate(new Date());
     methods.reset({
@@ -62,29 +65,48 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
     });
   }, [methods]);
 
-  const handleSubmit = (formData) => {
-    const newHistoryRecord = {
-      date: formData.date_of_action,
-      action: formData.action,
-      fio: formData.fio,
-      employee_number: formData.employee_number,
-    };
+  const handleSubmit = async (formData) => {
+    try {
+      const newHistoryRecord = {
+        date: formData.date_of_action,
+        action: formData.action,
+        fio: formData.fio,
+        employee_number: formData.employee_number,
+      };
+  
+      await updateGear({
+        id: selectedGear._id,
+        available: !availableStatus,
+        history: [...gearHistory, newHistoryRecord],
+      }).unwrap();
+  
+      const workerResponse = await getLazyWorker(formData.employee_number);
+      if (!workerResponse.data || !workerResponse.data.inventory) {
+        throw new Error("Данные сотрудника или его инвентарь отсутствуют");
+      }
+      const currentWorker = workerResponse.data;
+  
+      const updatedInventory = availableStatus
+        ? [...currentWorker.inventory, {
+            _id: selectedGear._id,
+            name: selectedGear.name,
+            inventory_number: selectedGear.inventory_number,
+          }]
+        : currentWorker.inventory.filter(item => item._id !== selectedGear._id);
+  
+      await updateWorker({
+        employee_number: formData.employee_number,
+        inventory: updatedInventory,
+      }).unwrap();
 
-    updateGear({
-      id: selectedGear,
-      available: !availableStatus, 
-      history: [...gearHistory, newHistoryRecord],
-    })
-      .unwrap()
-      .then(() => {
-        handleSnackbar(snackbarTitles.statusChanged);
-        handleClose();
-      })
-      .catch((err) => {
-        handleSnackbar(snackbarTitles.statusChangeFailed);
-        console.error('Ошибка запроса:', err);
-      });
+      handleSnackbar(snackbarTitles.statusChanged);
+      handleClose();
+    } catch (err) {
+      console.error("Ошибка при обновлении статуса:", err);
+      handleSnackbar(snackbarTitles.statusChangeFailed);
+    }
   };
+  
 
   return (
     <FormContainer maxWidth="sm">

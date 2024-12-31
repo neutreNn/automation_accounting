@@ -64,14 +64,14 @@ const DeleteWorkerModal = ({ handleSnackbar, handleClose, selectedWorker }) => {
 
 
   const handleSubmit = () => {
-    removeWorker(selectedWorker._id)
+    removeWorker(selectedWorker.employee_number)
       .unwrap()
       .then(() => {
-        handleSnackbar(snackbarTitles.gearDeleted);
+        handleSnackbar(snackbarTitles.workerDeleted);
         handleClose();
       })
       .catch((err) => {
-        handleSnackbar(snackbarTitles.gearDeleteFailed);
+        handleSnackbar(snackbarTitles.workerDeleteFailed);
         console.error('Ошибка запроса:', err);
       });
   };

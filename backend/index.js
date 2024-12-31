@@ -45,10 +45,10 @@ app.delete('/gears/:id', checkAuth, handleValidationErrors, GearController.remov
 app.patch('/gears/:id', checkAuth, handleValidationErrors, GearController.update);
 
 app.get('/workers', checkAuth, WorkerController.getAll);
-app.get('/workers/:id', checkAuth, WorkerController.getOne);
+app.get('/workers/:employee_number', checkAuth, WorkerController.getOne);
 app.post('/workers', checkAuth, workerCreateValidation, handleValidationErrors, WorkerController.create);
-app.delete('/workers/:id', checkAuth, handleValidationErrors, WorkerController.remove);
-app.patch('/workers/:id', checkAuth, handleValidationErrors, WorkerController.update);
+app.delete('/workers/:employee_number', checkAuth, handleValidationErrors, WorkerController.remove);
+app.patch('/workers/:employee_number', checkAuth, handleValidationErrors, WorkerController.update);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
