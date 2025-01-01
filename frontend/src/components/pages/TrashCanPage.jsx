@@ -21,16 +21,16 @@ import {
   Undo as UndoIcon, 
 } from '@mui/icons-material';
 
-import { useGetAllGearsQuery, useUpdateGearMutation } from '../api/apiGear';
-import { createSnackbarHandler } from '../utils/showSnackbar';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import CircleLoader from './CircleLoader';
-import ErrorMessage from './ErrorMessage';
-import GearDetailsModal from './GearDetailsModal';
-import DeleteGearModal from './DeleteGearModal';
-import BarcodeGenerator from './BarcodeGenerator';
-import FilterActions from './FilterActions';
-import FilterGearModal from './FilterGearModal';
+import { useGetAllGearsQuery, useUpdateGearMutation } from '../../api/apiGear';
+import { createSnackbarHandler } from '../../utils/showSnackbar';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import CircleLoader from '../common/CircleLoader';
+import ErrorMessage from '../sections/ErrorMessage';
+import GearDetailsModal from '../modals/GearDetailsModal';
+import DeleteGearModal from '../modals/DeleteGearModal';
+import BarcodeGenerator from '../modals/BarcodeGenerator';
+import FilterActions from '../common/FilterActions';
+import FilterGearModal from '../modals/FilterGearModal';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;

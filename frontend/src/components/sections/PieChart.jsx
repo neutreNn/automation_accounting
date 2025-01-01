@@ -2,7 +2,7 @@
 import { Typography as MuiTypography } from '@mui/material';
 import { PieChart, Pie, Cell } from 'recharts';
 import styled from 'styled-components';
-import { categoryOptions } from '../constants/categoryOptions';
+import { categoryOptions } from '../../constants/categoryOptions';
 
 const StyledTypographyBold = styled(MuiTypography)`
   color: #ffffffcc;

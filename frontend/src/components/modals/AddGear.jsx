@@ -3,12 +3,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Container as MuiContainer, Typography } from '@mui/material';
 import { Add as AddIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
-import { useCreateGearMutation } from '../api/apiGear';
-import StyledTextField from './StyledTextField';
-import CustomButton from './CustomButton';
-import StyledSelectField from './StyledSelectField';
-import { categoryOptions } from '../constants/categoryOptions';
-import { snackbarTitles } from '../constants/snackbarTitles';
+import { useCreateGearMutation } from '../../api/apiGear';
+import StyledTextField from '../common/StyledTextField';
+import CustomButton from '../common/CustomButton';
+import StyledSelectField from '../common/StyledSelectField';
+import { categoryOptions } from '../../constants/categoryOptions';
+import { snackbarTitles } from '../../constants/snackbarTitles';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;

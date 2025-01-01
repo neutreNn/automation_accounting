@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import styled from 'styled-components';
-import { useGetAllGearsQuery } from '../api/apiGear';
-import CircleLoader from './CircleLoader';
-import ErrorMessage from './ErrorMessage';
-import InventoryPieChart from './PieChart';
-import InventoryLineChart from './InventoryLineChart';
+import { useGetAllGearsQuery } from '../../api/apiGear';
+import CircleLoader from '../common/CircleLoader';
+import ErrorMessage from '../sections/ErrorMessage';
+import InventoryPieChart from '../sections/PieChart';
+import InventoryLineChart from '../sections/InventoryLineChart';
 
 const ChartsWrapper = styled.div`
   display: flex;

@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Container as MuiContainer, Typography } from '@mui/material';
 import { ArrowBackIos as ArrowBackIosIcon, Edit as EditIcon } from '@mui/icons-material';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import CustomButton from './CustomButton';
-import StyledTextField from './StyledTextField';
-import ErrorMessage from './ErrorMessage';
-import CircleLoader from './CircleLoader';
-import { useGetOneWorkerQuery, useUpdateWorkerMutation } from '../api/apiWorker';
-import InventorySection from './InventorySection';
-import { formatDate } from '../utils/formatDate';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import CustomButton from '../common/CustomButton';
+import StyledTextField from '../common/StyledTextField';
+import ErrorMessage from '../sections/ErrorMessage';
+import CircleLoader from '../common/CircleLoader';
+import { useGetOneWorkerQuery, useUpdateWorkerMutation } from '../../api/apiWorker';
+import InventorySection from '../sections/InventorySection';
+import { formatDate } from '../../utils/formatDate';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;

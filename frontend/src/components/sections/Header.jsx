@@ -14,10 +14,10 @@ import {
   Person as PersonIcon,
 } from '@mui/icons-material';
 
-import { createSnackbarHandler } from '../utils/showSnackbar';
-import AddGear from './AddGear';
-import CustomButton from './CustomButton';
-import AddWorker from './AddWorker';
+import { createSnackbarHandler } from '../../utils/showSnackbar';
+import AddGear from '../modals/AddGear';
+import CustomButton from '../common/CustomButton';
+import AddWorker from '../modals/AddWorker';
 
 const NavLink = styled(RouterLink)`
   color: #fff;

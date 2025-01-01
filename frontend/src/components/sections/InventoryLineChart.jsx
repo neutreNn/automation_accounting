@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { Typography as MuiTypography } from '@mui/material';
 import { AreaChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Area, Tooltip } from 'recharts';
-import { transformDataLineChart } from '../utils/transformDataLineChart';
+import { transformDataLineChart } from '../../utils/transformDataLineChart';
 
 const StyledTypographyBold = styled(MuiTypography)`
   color: #ffffffcc;

@@ -1,16 +1,15 @@
 ﻿import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Typography } from '@mui/material';
-import { Container as MuiContainer } from '@mui/system';
 import { DeleteForever as DeleteForeverIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import { filterData } from '../utils/filterData';
-import StyledTextField from './StyledTextField';
-import CustomButton from './CustomButton';
-import StyledSlider from './StyledSlider';
+import { Typography } from '@mui/material';
+import { Container as MuiContaine } from '@mui/system';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import StyledTextField from '../common/StyledTextField';
+import CustomButton from '../common/CustomButton';
+import { useRemoveWorkerMutation } from '../../api/apiWorker';
 
-const FormContainer = styled(MuiContainer)`
+const FormContainer = styled(MuiContaine)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -50,78 +49,65 @@ const ButtonSectionWrapper = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-const Row = styled.div`
-  display: flex;
-  gap: 20px;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
-
-const FilterWorkerModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
+const DeleteWorkerModal = ({ handleSnackbar, handleClose, selectedWorker }) => {
   const methods = useForm();
+  const [removeWorker] = useRemoveWorkerMutation();
 
   useEffect(() => {
     methods.reset({
-      ...filters,
+      fio: selectedWorker.fio,
+      employee_number: selectedWorker.employee_number,
+      passport: selectedWorker.passport,
+      post: selectedWorker.post,
     });
-  }, [filters]);
+  }, []);
 
-  const handleSubmit = (data) => {
-    const filteredData = filterData(data);
-    setFilters(filteredData);
-    handleSnackbar(snackbarTitles.filterAdded);
-    handleClose();
+
+  const handleSubmit = () => {
+    removeWorker(selectedWorker.employee_number)
+      .unwrap()
+      .then(() => {
+        handleSnackbar(snackbarTitles.workerDeleted);
+        handleClose();
+      })
+      .catch((err) => {
+        handleSnackbar(snackbarTitles.workerDeleteFailed);
+        console.error('Ошибка запроса:', err);
+      });
   };
-  
 
   return (
     <FormContainer maxWidth="sm">
       <Typography variant="h5" component="h1" color="white" gutterBottom>
-        Фильтры
+        Уверенны что хотите удалить сотрудника?
       </Typography>
       <FormSectionWrapper>
         <FormProvider {...methods}>
-          <Form
+          <Form 
             onSubmit={methods.handleSubmit(handleSubmit)}
-            id="filter-worker"
-            name="filter-worker"
+            id="delete-worker"
+            name="delete-worker"
           >
             <StyledTextField
-              name="fio"
-              label="ФИО"
-            />
-            <StyledSlider
-              label="Дата рождения"
-              name="date_of_birth"
-              minValue={1950}
-              maxValue={new Date().getFullYear()}
+                name="fio"
+                label="ФИО"
+                disabled
             />
             <StyledTextField
               name="employee_number"
               label="Табельный номер"
+              disabled
             />
-            <Row>
-              <StyledTextField
-                name="inn_number"
-                label="ИНН"
-              />
-              <StyledTextField
-                name="passport"
-                label="Паспорт"
-              />
-            </Row>
-            <Row>
             <StyledTextField
-              name="phone_number"
-              label="Номер телефона"
+              name="passport"
+              label="Паспорт"
+              disabled
             />
             <StyledTextField
               name="post"
               label="Должность"
+              disabled
             />
-            </Row>
           </Form>
         </FormProvider>
       </FormSectionWrapper>
@@ -130,13 +116,13 @@ const FilterWorkerModal = ({ handleClose, setFilters, filters, handleSnackbar })
           <ArrowBackIosIcon />
           Назад
         </CustomButton>
-        <CustomButton type="submit" form="filter-worker">
+        <CustomButton type="submit" form="delete-worker">
           <DeleteForeverIcon />
-          Отфильтровать
+          Удалить
         </CustomButton>
       </ButtonSectionWrapper>
     </FormContainer>
   );
 };
 
-export default FilterWorkerModal;
+export default DeleteWorkerModal;

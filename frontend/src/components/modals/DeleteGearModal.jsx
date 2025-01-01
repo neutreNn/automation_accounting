@@ -4,10 +4,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { DeleteForever as DeleteForeverIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { Container as MuiContaine } from '@mui/system';
-import { useRemoveGearMutation } from '../api/apiGear';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import StyledTextField from './StyledTextField';
-import CustomButton from './CustomButton';
+import { useRemoveGearMutation } from '../../api/apiGear';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import StyledTextField from '../common/StyledTextField';
+import CustomButton from '../common/CustomButton';
 
 const FormContainer = styled(MuiContaine)`
   position: fixed;

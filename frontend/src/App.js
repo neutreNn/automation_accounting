@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/sections/Header';
+import Footer from './components/sections/Footer';
 import styled from 'styled-components';
 import { SnackbarProvider } from 'notistack'
-import ChartsPage from './components/ChartsPage';
-import TrashCanPage from './components/TrashCanPage';
-import WorkersPage from './components/WorkersPage';
-import GearPage from './components/GearPage';
+import ChartsPage from './components/pages/ChartsPage';
+import TrashCanPage from './components/pages/TrashCanPage';
+import WorkersPage from './components/pages/WorkersPage';
+import GearPage from './components/pages/GearPage';
 
 const AppContainer = styled.div`
   display: flex;

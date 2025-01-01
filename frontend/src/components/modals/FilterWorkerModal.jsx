@@ -4,14 +4,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Typography } from '@mui/material';
 import { Container as MuiContainer } from '@mui/system';
 import { DeleteForever as DeleteForeverIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
-import { categoryOptions } from '../constants/categoryOptions';
-import { availableOptions } from '../constants/availableOptions';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import { filterData } from '../utils/filterData';
-import StyledTextField from './StyledTextField';
-import CustomButton from './CustomButton';
-import StyledSlider from './StyledSlider';
-import StyledSelectField from './StyledSelectField';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import { filterData } from '../../utils/filterData';
+import StyledTextField from '../common/StyledTextField';
+import CustomButton from '../common/CustomButton';
+import StyledSlider from '../common/StyledSlider';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;
@@ -62,7 +59,7 @@ const Row = styled.div`
   }
 `;
 
-const FilterGearModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
+const FilterWorkerModal = ({ handleClose, setFilters, filters, handleSnackbar }) => {
   const methods = useForm();
 
   useEffect(() => {
@@ -88,63 +85,43 @@ const FilterGearModal = ({ handleClose, setFilters, filters, handleSnackbar }) =
         <FormProvider {...methods}>
           <Form
             onSubmit={methods.handleSubmit(handleSubmit)}
-            id="filter-gear"
-            name="filter-gear"
+            id="filter-worker"
+            name="filter-worker"
           >
-            <Row>
-              <StyledTextField
-                name="name"
-                label="Название"
-              />
-              <StyledTextField
-              name="supplier"
-              label="Поставщик"
-            />
-            </Row>
-            <Row>
-              <StyledTextField
-                name="serial_number"
-                label="Серийный номер"
-              />
-              <StyledTextField
-                name="inventory_number"
-                label="Инвентарный номер"
-              />
-            </Row>
-            <StyledSelectField
-              name="category"
-              label="Категория"
-              options={categoryOptions}
-            />
-            <StyledSelectField
-              name="available"
-              label="Доступность"
-              options={availableOptions}
+            <StyledTextField
+              name="fio"
+              label="ФИО"
             />
             <StyledSlider
-              label="Цена"
-              name="price"
-              interval={1000}
-              maxValue={100000}
-            />
-            <StyledSlider
-              label="Год выпуска"
-              name="year_of_release"
+              label="Дата рождения"
+              name="date_of_birth"
               minValue={1950}
               maxValue={new Date().getFullYear()}
             />
-            <StyledSlider
-              label="Год ввода"
-              name="year_of_input"
-              minValue={1950}
-              maxValue={new Date().getFullYear()}
+            <StyledTextField
+              name="employee_number"
+              label="Табельный номер"
             />
-            <StyledSlider
-              label="Год вывода"
-              name="year_of_output"
-              minValue={1950}
-              maxValue={new Date().getFullYear() + 50}
+            <Row>
+              <StyledTextField
+                name="inn_number"
+                label="ИНН"
+              />
+              <StyledTextField
+                name="passport"
+                label="Паспорт"
+              />
+            </Row>
+            <Row>
+            <StyledTextField
+              name="phone_number"
+              label="Номер телефона"
             />
+            <StyledTextField
+              name="post"
+              label="Должность"
+            />
+            </Row>
           </Form>
         </FormProvider>
       </FormSectionWrapper>
@@ -153,7 +130,7 @@ const FilterGearModal = ({ handleClose, setFilters, filters, handleSnackbar }) =
           <ArrowBackIosIcon />
           Назад
         </CustomButton>
-        <CustomButton type="submit" form="filter-gear">
+        <CustomButton type="submit" form="filter-worker">
           <DeleteForeverIcon />
           Отфильтровать
         </CustomButton>
@@ -162,4 +139,4 @@ const FilterGearModal = ({ handleClose, setFilters, filters, handleSnackbar }) =
   );
 };
 
-export default FilterGearModal;
+export default FilterWorkerModal;

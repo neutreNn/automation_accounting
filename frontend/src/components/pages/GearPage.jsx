@@ -17,16 +17,16 @@ import {
 
 import { Delete, Done, Close, QrCode } from '@mui/icons-material';
 
-import { useGetAllGearsQuery, useUpdateGearMutation } from '../api/apiGear';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import { createSnackbarHandler } from '../utils/showSnackbar';
-import CircleLoader from './CircleLoader';
-import ErrorMessage from './ErrorMessage';
-import GearDetailsModal from './GearDetailsModal';
-import StatusChangeModal from './StatusChangeModal';
-import BarcodeGenerator from './BarcodeGenerator';
-import FilterGearModal from './FilterGearModal';
-import FilterActions from './FilterActions';
+import { useGetAllGearsQuery, useUpdateGearMutation } from '../../api/apiGear';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import { createSnackbarHandler } from '../../utils/showSnackbar';
+import CircleLoader from '../common/CircleLoader';
+import ErrorMessage from '../sections/ErrorMessage';
+import GearDetailsModal from '../modals/GearDetailsModal';
+import StatusChangeModal from '../modals/StatusChangeModal';
+import BarcodeGenerator from '../modals/BarcodeGenerator';
+import FilterGearModal from '../modals/FilterGearModal';
+import FilterActions from '../common/FilterActions';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;

@@ -17,15 +17,15 @@ import {
 
 import { Delete } from '@mui/icons-material';
 
-import { createSnackbarHandler } from '../utils/showSnackbar';
-import CircleLoader from './CircleLoader';
-import ErrorMessage from './ErrorMessage';
-import FilterWorkerModal from './FilterWorkerModal';
-import FilterActions from './FilterActions';
-import { useGetAllWorkersQuery } from '../api/apiWorker';
-import WorkersDetailsModal from './WorkersDetailsModal';
-import DeleteWorkerModal from './DeleteWorkerModal';
-import { formatDate } from '../utils/formatDate';
+import { createSnackbarHandler } from '../../utils/showSnackbar';
+import CircleLoader from '../common/CircleLoader';
+import ErrorMessage from '../sections/ErrorMessage';
+import FilterWorkerModal from '../modals/FilterWorkerModal';
+import FilterActions from '../common/FilterActions';
+import { useGetAllWorkersQuery } from '../../api/apiWorker';
+import WorkersDetailsModal from '../modals/WorkersDetailsModal';
+import DeleteWorkerModal from '../modals/DeleteWorkerModal';
+import { formatDate } from '../../utils/formatDate';
 
 const IconButton = styled(MuiIconButton)`
   border-radius: 8px;

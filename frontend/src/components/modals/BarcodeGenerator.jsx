@@ -4,7 +4,7 @@ import JsBarcode from "jsbarcode";
 import { Typography } from '@mui/material';
 import { Download as DownloadIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { Container as MuiContainer } from '@mui/system';
-import CustomButton from './CustomButton';
+import CustomButton from '../common/CustomButton';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;

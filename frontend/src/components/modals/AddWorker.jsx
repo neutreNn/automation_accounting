@@ -3,10 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Container as MuiContainer, Typography } from '@mui/material';
 import { Add as AddIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
-import StyledTextField from './StyledTextField';
-import CustomButton from './CustomButton';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import { useCreateWorkerMutation } from '../api/apiWorker';
+import StyledTextField from '../common/StyledTextField';
+import CustomButton from '../common/CustomButton';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import { useCreateWorkerMutation } from '../../api/apiWorker';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;

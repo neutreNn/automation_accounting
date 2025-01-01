@@ -4,12 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Typography } from '@mui/material';
 import { Edit as EditIcon, ArrowBackIos as ArrowBackIosIcon } from '@mui/icons-material';
 import { Container as MuiContainer } from '@mui/system';
-import { useUpdateGearMutation } from '../api/apiGear';
-import { formatDate } from '../utils/formatDate';
-import { snackbarTitles } from '../constants/snackbarTitles';
-import StyledTextField from './StyledTextField';
-import CustomButton from './CustomButton';
-import { useLazyGetOneWorkerQuery, useUpdateWorkerMutation } from '../api/apiWorker';
+import { useUpdateGearMutation } from '../../api/apiGear';
+import { formatDate } from '../../utils/formatDate';
+import { snackbarTitles } from '../../constants/snackbarTitles';
+import StyledTextField from '../common/StyledTextField';
+import CustomButton from '../common/CustomButton';
+import { useLazyGetOneWorkerQuery, useUpdateWorkerMutation } from '../../api/apiWorker';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;
