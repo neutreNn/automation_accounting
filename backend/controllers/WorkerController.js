@@ -1,4 +1,5 @@
 import WorkerModel from '../models/Worker.js'
+import { logAction } from './LogsController.js';
 
 export const getAll = async (req, res) => {
 
@@ -52,6 +53,13 @@ export const remove = async (req, res) => {
     try {
         const employeeNumber = req.params.employee_number;
 
+        await logAction({
+            typeAction: 'Удаление',
+            module: 'Сотрудники',
+            action: `Удалил сотрудника ${req.params.employee_number}`,
+            user: req.userName,
+        });
+
         const doc = await WorkerModel.findOneAndDelete({ employee_number: employeeNumber });
 
         if (!doc) {
@@ -74,6 +82,13 @@ export const remove = async (req, res) => {
 export const update = async (req, res) => {
     try {
         const employeeNumber = req.params.employee_number;
+
+        await logAction({
+            typeAction: 'Обновление',
+            module: 'Сотрудники',
+            action: `Обновил сотрудника ${req.params.employee_number}`,
+            user: req.userName,
+        });
         
         await WorkerModel.updateOne(
             {
@@ -105,6 +120,14 @@ export const update = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
+        
+        await logAction({
+            typeAction: 'Создание',
+            module: 'Сотрудники',
+            action: `Создал сотрудника ${req.params.employee_number}`,
+            user: req.userName,
+        });
+
         const doc = new WorkerModel({
             fio: req.body.fio,
             date_of_birth: req.body.date_of_birth,

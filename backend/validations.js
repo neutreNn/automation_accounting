@@ -34,3 +34,11 @@ export const workerCreateValidation = [
     body('phone_number', 'Введите номер телефона').isLength({ max: 12, min: 12 }).isString(),
     body('post', 'Введите должность').isString(),
 ];
+
+export const logsCreateValidation = [
+    body('time', 'Введите время действия').isString(),
+    body('typeAction', 'Введите тип действия').isString(),
+    body('module', 'Введите модуль').isString(),
+    body('action', 'Введите описание действия').isString(),
+    body('user', 'Введите пользователя').isString(),
+];

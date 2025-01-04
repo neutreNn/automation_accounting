@@ -1,4 +1,5 @@
 ﻿import GearModel from '../models/Gear.js'
+import { logAction } from './LogsController.js';
 
 export const getAll = async (req, res) => {
 
@@ -58,6 +59,13 @@ export const remove = async (req, res) => {
     try {
         const gearId = req.params.id;
 
+        await logAction({
+            typeAction: 'Удаление',
+            module: 'Инвентарь',
+            action: `Удалил инвентарь ${req.params.id}`,
+            user: req.userName,
+        });
+
         const doc = await GearModel.findOneAndDelete({ _id: gearId });
 
         if (!doc) {
@@ -80,6 +88,13 @@ export const remove = async (req, res) => {
 export const update = async (req, res) => {
     try {
         const gearId = req.params.id;
+
+        await logAction({
+            typeAction: 'Обновление',
+            module: 'Инвентарь',
+            action: `Обновил инвентарь ${req.params.id}`,
+            user: req.userName,
+        });
         
         await GearModel.updateOne(
             {
@@ -115,6 +130,14 @@ export const update = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
+
+        await logAction({
+            typeAction: 'Добавление',
+            module: 'Инвентарь',
+            action: `Добавил новый инвентарь "${req.body.name}" с инвентарным номером ${req.body.inventory_number}`,
+            user: req.userName,
+        });
+
         const doc = new GearModel({
             name: req.body.name,
             category: req.body.category,

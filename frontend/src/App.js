@@ -8,6 +8,7 @@ import ChartsPage from './components/pages/ChartsPage';
 import TrashCanPage from './components/pages/TrashCanPage';
 import WorkersPage from './components/pages/WorkersPage';
 import GearPage from './components/pages/GearPage';
+import LogsPage from './components/pages/LogsPage';
 
 const AppContainer = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ function App() {
               <Route path="/" element={<GearPage />} />
               <Route path="/workers" element={<WorkersPage />} />
               <Route path="/statistics" element={<ChartsPage />} />
-              <Route path="/logs" element={<p>Логи</p>} />
+              <Route path="/logs" element={<LogsPage />} />
               <Route path="/trash-can" element={<TrashCanPage />} />
             </Routes>
           </MainContent>

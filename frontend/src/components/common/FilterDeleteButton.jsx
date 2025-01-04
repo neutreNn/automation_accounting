@@ -54,6 +54,9 @@ const labelMap = {
   inn_number: 'ИНН',
   phone_number: 'Номер телефона',
   post: 'Должность',
+  typeAction: 'Тип',
+  module: 'Модуль',
+  user: 'Пользователь',
 };
 
 function FilterDeleteButton({ label, value, onRemove }) {

@@ -113,3 +113,17 @@ export const getMe = async (req, res) => {
         });
     }
 };
+
+export const getUserName = async (req, res, next) => {
+    try {
+        const user = await UserModel.findById(req.userId);
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+        req.userName = user.fullName;
+        next();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Ошибка при получении данных пользователя' });
+    }
+};

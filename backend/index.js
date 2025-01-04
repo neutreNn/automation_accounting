@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import cors from 'cors'
 
-import { registerValidation, loginValidation, gearCreateValidation, workerCreateValidation } from './validations.js';
+import { registerValidation, loginValidation, gearCreateValidation, workerCreateValidation, logsCreateValidation } from './validations.js';
 
 import { checkAuth, handleValidationErrors } from './utils/index.js'
-import { UserController, GearController, WorkerController } from './controllers/index.js';
+import { UserController, GearController, WorkerController, LogsController } from './controllers/index.js';
 
 mongoose.connect(
     'mongodb+srv://vanibro1:vanibro1@cluster0.ynxp0dt.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0',
@@ -40,15 +40,17 @@ app.post('/auth/register', registerValidation, handleValidationErrors, UserContr
 
 app.get('/gears', checkAuth, GearController.getAll);
 app.get('/gears/:id', checkAuth, GearController.getOne);
-app.post('/gears', checkAuth, gearCreateValidation, handleValidationErrors, GearController.create);
-app.delete('/gears/:id', checkAuth, handleValidationErrors, GearController.remove);
-app.patch('/gears/:id', checkAuth, handleValidationErrors, GearController.update);
+app.post('/gears', checkAuth, UserController.getUserName, gearCreateValidation, handleValidationErrors, GearController.create);
+app.delete('/gears/:id', checkAuth, UserController.getUserName, handleValidationErrors, GearController.remove);
+app.patch('/gears/:id', checkAuth, UserController.getUserName, handleValidationErrors, GearController.update);
 
 app.get('/workers', checkAuth, WorkerController.getAll);
 app.get('/workers/:employee_number', checkAuth, WorkerController.getOne);
-app.post('/workers', checkAuth, workerCreateValidation, handleValidationErrors, WorkerController.create);
-app.delete('/workers/:employee_number', checkAuth, handleValidationErrors, WorkerController.remove);
-app.patch('/workers/:employee_number', checkAuth, handleValidationErrors, WorkerController.update);
+app.post('/workers', checkAuth, UserController.getUserName, workerCreateValidation, handleValidationErrors, WorkerController.create);
+app.delete('/workers/:employee_number', checkAuth, UserController.getUserName, handleValidationErrors, WorkerController.remove);
+app.patch('/workers/:employee_number', checkAuth, UserController.getUserName, handleValidationErrors, WorkerController.update);
+
+app.get('/logs', checkAuth, LogsController.getAll);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
