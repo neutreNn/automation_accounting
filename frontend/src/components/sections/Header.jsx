@@ -106,6 +106,11 @@ function Header() {
 
   const isAddButtonVisible = location.pathname === '/' || location.pathname === '/workers';
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+  };
+
   return (
     <>
       <HeaderContainer>
@@ -116,7 +121,7 @@ function Header() {
           </LogoContainer>
 
           <Nav>
-            <NavLink to="/">
+            <NavLink to="/gears">
               <NavLinkContent>
                 <InventoryIcon />
                 Инвентарь
@@ -155,7 +160,7 @@ function Header() {
               </CustomButton>
             )}
             <CustomButton>
-              <LogoutIcon />
+              <LogoutIcon onClick={handleLogout}/>
             </CustomButton>
           </ButtonsContainer>
         </HeaderWrapper>

@@ -18,5 +18,6 @@
     workerUpdateFailed: { message: "Не удалось редактировать сотрудника", variant : "error" },
     workerDeleted: { message: "Сотрудник успешно удалён", variant : "success" },
     workerDeleteFailed: { message: "Не удалось удалить сотрудника", variant : "error" },
+    loginFailed: { message: "Неверный логин или пароль", variant : "error" },
   };
   

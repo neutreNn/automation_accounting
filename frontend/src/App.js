@@ -1,42 +1,60 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/sections/Header';
-import Footer from './components/sections/Footer';
-import styled from 'styled-components';
-import { SnackbarProvider } from 'notistack'
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 import ChartsPage from './components/pages/ChartsPage';
 import TrashCanPage from './components/pages/TrashCanPage';
 import WorkersPage from './components/pages/WorkersPage';
 import GearPage from './components/pages/GearPage';
 import LogsPage from './components/pages/LogsPage';
-
-const AppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-const MainContent = styled.main`
-  flex: 1;
-`;
+import LoginPage from './components/pages/LoginPage';
+import ProtectedRoute from './components/sections/ProtectedRoute';
+import CircleLoader from './components/common/CircleLoader';
+import { useValidateTokenMutation } from './api/apiUser';
 
 function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [validateToken] = useValidateTokenMutation();
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const response = await validateToken().unwrap();
+        if (response.valid) {
+          setIsAuthenticated(true);
+        }
+      } catch (err) {
+        console.error('Ошибка проверки токена:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkToken();
+  }, [validateToken]);
+
+  if (loading) {
+    return <CircleLoader />;
+  }
+
   return (
     <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
       <Router>
-        <AppContainer>
-          <Header />
-          <MainContent>
-            <Routes>
-              <Route path="/" element={<GearPage />} />
-              <Route path="/workers" element={<WorkersPage />} />
-              <Route path="/statistics" element={<ChartsPage />} />
-              <Route path="/logs" element={<LogsPage />} />
-              <Route path="/trash-can" element={<TrashCanPage />} />
-            </Routes>
-          </MainContent>
-          <Footer />
-        </AppContainer>
+        <Routes>
+          <Route
+            path="/"
+            element={isAuthenticated ? <Navigate to="/gears" /> : <LoginPage />}
+          />
+          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+            <Route path="/gears" element={<GearPage />} />
+            <Route path="/workers" element={<WorkersPage />} />
+            <Route path="/statistics" element={<ChartsPage />} />
+            <Route path="/logs" element={<LogsPage />} />
+            <Route path="/trash-can" element={<TrashCanPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </Router>
     </SnackbarProvider>
   );

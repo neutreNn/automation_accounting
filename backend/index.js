@@ -37,6 +37,9 @@ app.use('/uploads', express.static('uploads'));
 app.get('/auth/me', checkAuth, UserController.getMe);
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
+app.post('/auth/validate', checkAuth, (req, res) => {
+    res.status(200).json({ valid: true });
+});
 
 app.get('/gears', checkAuth, GearController.getAll);
 app.get('/gears/:id', checkAuth, GearController.getOne);
