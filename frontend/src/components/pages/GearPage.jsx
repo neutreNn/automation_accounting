@@ -293,6 +293,7 @@ const GearPage = () => {
         />
       </TableContainer>
       <Modal
+        disableScrollLock
         open={openGearDetails}
         onClose={handlecloseGearDetails}
         aria-labelledby="modal-modal-title"
@@ -305,6 +306,7 @@ const GearPage = () => {
         />
       </Modal>
       <Modal
+        disableScrollLock
         open={openStatusChange}
         onClose={handleCloseStatusChange}
         aria-labelledby="modal-modal-title2"
@@ -319,6 +321,7 @@ const GearPage = () => {
         />
       </Modal>
       <Modal
+        disableScrollLock
         open={openBarcode}
         onClose={handleCloseBarcode}
         aria-labelledby="modal-modal-title3"
@@ -330,6 +333,7 @@ const GearPage = () => {
         />
       </Modal>
       <Modal
+        disableScrollLock
         open={openFilter}
         onClose={handleCloseFilter}
         aria-labelledby="modal-modal-title4"

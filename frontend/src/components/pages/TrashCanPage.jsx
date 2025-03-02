@@ -285,6 +285,7 @@ const TrashCanPage = () => {
         />
       </TableContainer>
       <Modal
+        disableScrollLock
         open={openGearDetails}
         onClose={handlecloseGearDetails}
         aria-labelledby="modal-modal-title"
@@ -297,6 +298,7 @@ const TrashCanPage = () => {
         />
       </Modal>
       <Modal
+        disableScrollLock
         open={openDeleteGear}
         onClose={handleCloseDeleteGear}
         aria-labelledby="modal-modal-title2"
@@ -309,6 +311,7 @@ const TrashCanPage = () => {
         />
       </Modal>
       <Modal
+        disableScrollLock
         open={openBarcode}
         onClose={handleCloseBarcode}
         aria-labelledby="modal-modal-title3"
@@ -320,6 +323,7 @@ const TrashCanPage = () => {
         />
       </Modal>
       <Modal
+        disableScrollLock
         open={openFilter}
         onClose={handleCloseFilter}
         aria-labelledby="modal-modal-title4"
