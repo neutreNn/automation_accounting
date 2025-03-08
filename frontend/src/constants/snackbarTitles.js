@@ -19,5 +19,8 @@
     workerDeleted: { message: "Сотрудник успешно удалён", variant : "success" },
     workerDeleteFailed: { message: "Не удалось удалить сотрудника", variant : "error" },
     loginFailed: { message: "Неверный логин или пароль", variant : "error" },
+    barcodeScanDetected: { message: "Инвентарь с таким штрихкодом не найден", variant : "success" },
+    barcodeScanFailed: { message: "Инвентарь с таким штрихкодом не найден", variant : "error" },
+    barcodeScanError: { message: "Ошибка сканирования штрихкода", variant : "error" },
   };
   

@@ -12,12 +12,15 @@ import {
   Logout as MuiLogoutIcon, 
   Add as AddIcon, 
   Person as PersonIcon,
+  CropFree as CropFreeIcon,
 } from '@mui/icons-material';
 
 import { createSnackbarHandler } from '../../utils/showSnackbar';
 import AddGear from '../modals/AddGear';
 import CustomButton from '../common/CustomButton';
 import AddWorker from '../modals/AddWorker';
+import BarcodeScannerModal from '../modals/BarcodeScannerModal';
+import GearDetailsModal from '../modals/GearDetailsModal';
 
 const NavLink = styled(RouterLink)`
   color: #fff;
@@ -88,6 +91,21 @@ function Header() {
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
+  const [openModalScan, setOpenModalScan] = useState(false);
+  const handleOpenScanModal = () => setOpenModalScan(true);
+  const handleCloseScanModal = () => setOpenModalScan(false);
+
+  const [openGearDetails, setOpenGearDetails] = useState(false);
+  const handleOpenGearDetails = () => setOpenGearDetails(true);
+  const handlecloseGearDetails = () => setOpenGearDetails(false);
+
+  const [selectedGear, setSelectedGear] = useState({});
+
+  const handleBarcodeDetected = (code) => {
+    setSelectedGear({ _id: code });
+    handleOpenGearDetails()
+  };
+
   const { enqueueSnackbar } = useSnackbar();
   const handleSnackbar = createSnackbarHandler(enqueueSnackbar);
 
@@ -95,7 +113,7 @@ function Header() {
 
   const getModalContent = () => {
     switch (location.pathname) {
-      case '/':
+      case '/gears':
         return <AddGear handleClose={handleCloseModal} handleSnackbar={handleSnackbar} />;
       case '/workers':
         return <AddWorker handleClose={handleCloseModal} handleSnackbar={handleSnackbar} />;
@@ -104,7 +122,7 @@ function Header() {
     }
   };
 
-  const isAddButtonVisible = location.pathname === '/' || location.pathname === '/workers';
+  const isAddButtonVisible = location.pathname === '/gears' || location.pathname === '/workers';
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -159,19 +177,45 @@ function Header() {
                 <AddIcon />
               </CustomButton>
             )}
-            <CustomButton>
-              <LogoutIcon onClick={handleLogout}/>
+            <CustomButton onClick={handleOpenScanModal}>
+              <CropFreeIcon/>
+            </CustomButton>
+            <CustomButton onClick={handleLogout}>
+              <LogoutIcon />
             </CustomButton>
           </ButtonsContainer>
         </HeaderWrapper>
       </HeaderContainer>
       <Modal
-          open={openModal}
-          onClose={handleCloseModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+        disableScrollLock
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         {getModalContent()}
+      </Modal>
+      <Modal
+        disableScrollLock
+        open={openModalScan}
+        onClose={handleCloseScanModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <BarcodeScannerModal handleCloseScanModal={handleCloseScanModal} onDetected={handleBarcodeDetected} handleSnackbar={handleSnackbar}/>
+      </Modal>
+      <Modal
+        disableScrollLock
+        open={openGearDetails}
+        onClose={handlecloseGearDetails}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <GearDetailsModal
+          handleClose={handlecloseGearDetails} 
+          selectedGear={selectedGear._id} 
+          handleSnackbar={handleSnackbar}
+        />
       </Modal>
     </>
   );

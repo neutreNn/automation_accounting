@@ -329,7 +329,7 @@ const GearPage = () => {
       >
         <BarcodeGenerator
           handleClose={handleCloseBarcode}
-          selectedGear={selectedGear.serial_number}
+          selectedGear={selectedGear._id}
         />
       </Modal>
       <Modal

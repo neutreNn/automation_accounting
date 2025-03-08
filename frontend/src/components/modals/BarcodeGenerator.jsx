@@ -21,7 +21,7 @@ const FormContainer = styled(MuiContainer)`
 `;
 
 const BarcodeSection = styled.div`
-  background-color: #050505;
+  background-color: #fff;
   border: 1px solid #343435;
   border-radius: 10px 10px 0 0;
   padding: 15px;
@@ -52,9 +52,11 @@ const BarcodeGenerator = ({ handleClose, selectedGear }) => {
       JsBarcode(barcodeRef.current, selectedGear, {
         format: "CODE128",
         lineColor: "#000",
-        width: 2,
-        height: 60,
-        displayValue: true,
+        width: 3,
+        height: 100,
+        displayValue: false,
+        fontSize: 20,
+        margin: 10,
       });
     }
   }, [selectedGear]);
