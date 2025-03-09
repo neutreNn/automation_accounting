@@ -1,7 +1,7 @@
 ﻿import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSnackbar } from 'notistack';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Modal } from '@mui/material';
 
 import { 
@@ -22,7 +22,7 @@ import AddWorker from '../modals/AddWorker';
 import BarcodeScannerModal from '../modals/BarcodeScannerModal';
 import GearDetailsModal from '../modals/GearDetailsModal';
 
-const NavLink = styled(RouterLink)`
+const NavLinkStyled = styled(NavLink)`
   color: #fff;
   text-decoration: none;
   font-size: 16px;
@@ -30,6 +30,11 @@ const NavLink = styled(RouterLink)`
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &.active {
+    text-decoration: underline;
+    font-weight: bold;
   }
 `;
 
@@ -139,36 +144,36 @@ function Header() {
           </LogoContainer>
 
           <Nav>
-            <NavLink to="/gears">
+            <NavLinkStyled  to="/gears">
               <NavLinkContent>
                 <InventoryIcon />
                 Инвентарь
               </NavLinkContent>
-            </NavLink>
-            <NavLink to="/workers">
+            </NavLinkStyled>
+            <NavLinkStyled  to="/workers">
               <NavLinkContent>
                 <PersonIcon />
                 Сотрудники
               </NavLinkContent>
-            </NavLink>
-            <NavLink to="/statistics">
+            </NavLinkStyled>
+            <NavLinkStyled  to="/statistics">
               <NavLinkContent>
                 <InsightsIcon />
                 Статистика
               </NavLinkContent>
-            </NavLink>
-            <NavLink to="/logs">
+            </NavLinkStyled>
+            <NavLinkStyled  to="/logs">
               <NavLinkContent>
                 <DvrIcon />
                 Логи
               </NavLinkContent>
-            </NavLink>
-            <NavLink to="/trash-can">
+            </NavLinkStyled>
+            <NavLinkStyled  to="/trash-can">
               <NavLinkContent>
                 <DeleteIcon />
                 Корзина
               </NavLinkContent>
-            </NavLink>
+            </NavLinkStyled>
           </Nav>
 
           <ButtonsContainer>
