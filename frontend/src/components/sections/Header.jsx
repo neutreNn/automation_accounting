@@ -192,7 +192,6 @@ function Header() {
         </HeaderWrapper>
       </HeaderContainer>
       <Modal
-        disableScrollLock
         open={openModal}
         onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
@@ -201,7 +200,6 @@ function Header() {
         {getModalContent()}
       </Modal>
       <Modal
-        disableScrollLock
         open={openModalScan}
         onClose={handleCloseScanModal}
         aria-labelledby="modal-modal-title"
@@ -210,7 +208,6 @@ function Header() {
         <BarcodeScannerModal handleCloseScanModal={handleCloseScanModal} onDetected={handleBarcodeDetected} handleSnackbar={handleSnackbar}/>
       </Modal>
       <Modal
-        disableScrollLock
         open={openGearDetails}
         onClose={handlecloseGearDetails}
         aria-labelledby="modal-modal-title"

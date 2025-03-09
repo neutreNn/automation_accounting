@@ -233,7 +233,6 @@ const WorkersPage = () => {
         />
       </TableContainer>
       <Modal
-        disableScrollLock
         open={openWorkerDetails}
         onClose={handlecloseWorkerDetails}
         aria-labelledby="modal-modal-title"
@@ -246,7 +245,6 @@ const WorkersPage = () => {
         />
       </Modal>
       <Modal
-        disableScrollLock
         open={openFilter}
         onClose={handleCloseFilter}
         aria-labelledby="modal-modal-title4"
@@ -260,7 +258,6 @@ const WorkersPage = () => {
         />
       </Modal>
       <Modal
-        disableScrollLock
         open={openWorkerDelete}
         onClose={handleCloseDeleteWorker}
         aria-labelledby="modal-modal-title2"

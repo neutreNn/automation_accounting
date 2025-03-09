@@ -176,7 +176,6 @@ const LogsPage = () => {
         />
       </TableContainer>
       <Modal
-        disableScrollLock
         open={openFilter}
         onClose={handleCloseFilter}
         aria-labelledby="modal-modal-title"
