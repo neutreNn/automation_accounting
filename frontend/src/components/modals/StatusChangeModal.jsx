@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Typography } from '@mui/material';
@@ -9,7 +9,10 @@ import { formatDate } from '../../utils/formatDate';
 import { snackbarTitles } from '../../constants/snackbarTitles';
 import StyledTextField from '../common/StyledTextField';
 import CustomButton from '../common/CustomButton';
-import { useLazyGetOneWorkerQuery, useUpdateWorkerMutation } from '../../api/apiWorker';
+import { useGetAllWorkersQuery, useLazyGetOneWorkerQuery, useUpdateWorkerMutation } from '../../api/apiWorker';
+import StyledSelectField from '../common/StyledSelectField';
+import CircleLoader from '../common/CircleLoader';
+import ErrorMessage from '../sections/ErrorMessage';
 
 const FormContainer = styled(MuiContainer)`
   position: fixed;
@@ -53,17 +56,55 @@ const ButtonSectionWrapper = styled.div`
 
 const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availableStatus, gearHistory }) => {
   const methods = useForm();
+  const { setValue, watch } = methods;
+
+  const { data: workers, isLoading, isError } = useGetAllWorkersQuery();
   const [updateGear] = useUpdateGearMutation();
   const [updateWorker] = useUpdateWorkerMutation();
   const [getLazyWorker] = useLazyGetOneWorkerQuery();
  
   useEffect(() => {
-    const todayDate = formatDate(new Date());
     methods.reset({
-      date_of_action: todayDate,
+      date_of_action: formatDate(new Date()),
       action: availableStatus ? 'Взял' : 'Вернул',
     });
   }, [methods]);
+
+  const selectedFio = watch('fio');
+  const selectedNumber = watch('employee_number');
+
+  const fioOptions = useMemo(() => 
+    workers ? workers.map(worker => ({
+      label: worker.fio,
+      value: worker.fio,
+    })) : [], 
+    [workers]
+  );
+  
+  const employeeOptions = useMemo(() => 
+    workers ? workers.map(worker => ({
+      label: worker.employee_number,
+      value: worker.employee_number,
+    })) : [], 
+    [workers]
+  );
+
+  useEffect(() => {
+    if (workers) {
+      const worker = workers.find(w => w.fio === selectedFio);
+      if (worker) setValue('employee_number', worker.employee_number);
+    }
+  }, [selectedFio, setValue, workers]);
+  
+  useEffect(() => {
+    if (workers) {
+      const worker = workers.find(w => w.employee_number === selectedNumber);
+      if (worker) setValue('fio', worker.fio);
+    }
+  }, [selectedNumber, setValue, workers]);
+
+  if (isLoading) return <CircleLoader />;
+  if (isError) return <ErrorMessage />;
 
   const handleSubmit = async (formData) => {
     try {
@@ -132,7 +173,19 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
               requiredText="Действие должно быть выбрано"
               disabled
             />
-            <StyledTextField
+            <StyledSelectField
+              name="fio"
+              label="ФИО"
+              requiredText="ФИО должно быть заполнено"
+              options={fioOptions}
+            />
+            <StyledSelectField
+              name="employee_number"
+              label="Табельный номер"
+              requiredText="Табельный номер должен быть выбран"
+              options={employeeOptions}
+            />
+            {/* <StyledTextField
               name="fio"
               label="ФИО"
               requiredText="ФИО должно быть заполнено"
@@ -141,7 +194,7 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
               name="employee_number"
               label="Табельный номер"
               requiredText="Табельный номер должен быть выбран"
-            />
+            /> */}
           </Form>
         </FormProvider>
       </FormSectionWrapper>
