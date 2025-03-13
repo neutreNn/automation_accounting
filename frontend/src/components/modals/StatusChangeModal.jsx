@@ -185,16 +185,6 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
               requiredText="Табельный номер должен быть выбран"
               options={employeeOptions}
             />
-            {/* <StyledTextField
-              name="fio"
-              label="ФИО"
-              requiredText="ФИО должно быть заполнено"
-            />
-            <StyledTextField
-              name="employee_number"
-              label="Табельный номер"
-              requiredText="Табельный номер должен быть выбран"
-            /> */}
           </Form>
         </FormProvider>
       </FormSectionWrapper>
