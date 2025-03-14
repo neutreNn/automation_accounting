@@ -14,26 +14,28 @@ const CustomFormControl = styled(MuiFormControl)`
     border: 1px solid #222223;
     border-radius: 5px;
     color: #fff;
+
+    &.Mui-disabled {
+      color: #ccc;
+      -webkit-text-fill-color: #ccc;
+      background-color: #1e1e1e;
+    }
   }
 
   & .MuiInputLabel-root {
     color: #ccc;
-  }
 
-  & .MuiInputLabel-shrink {
-    color: #fff;
+    &.Mui-disabled {
+      color: #888;
+    }
   }
 
   & .MuiOutlinedInput-notchedOutline {
     border: 1px solid #222223;
-  }
 
-  &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border: 1px solid #fff;
-  }
-
-  & .MuiSvgIcon-root {
-    color: #fff;
+    &.Mui-disabled {
+      border-color: #555;
+    }
   }
 `;
 
@@ -44,6 +46,12 @@ const CustomSelect = styled(MuiSelect)`
     padding: 8px;
     display: flex;
     align-items: center;
+
+    &.Mui-disabled {
+      color: #ccc;
+      -webkit-text-fill-color: #ccc;
+      background-color: #1e1e1e;
+    }
   }
 `;
 

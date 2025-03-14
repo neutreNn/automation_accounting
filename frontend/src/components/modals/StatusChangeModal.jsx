@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Typography } from '@mui/material';
@@ -62,6 +62,7 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
   const [updateGear] = useUpdateGearMutation();
   const [updateWorker] = useUpdateWorkerMutation();
   const [getLazyWorker] = useLazyGetOneWorkerQuery();
+  const [isFieldsDisabled, setIsFieldsDisabled] = useState(false);
  
   useEffect(() => {
     methods.reset({
@@ -69,6 +70,19 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
       action: availableStatus ? 'Взял' : 'Вернул',
     });
   }, [methods]);
+
+  useEffect(() => {
+    if (!availableStatus && gearHistory?.length) {
+      const lastRecord = [...gearHistory].reverse().find(record => record.action === "Взял");
+      if (lastRecord) {
+        setValue("fio", lastRecord.fio);
+        setValue("employee_number", lastRecord.employee_number);
+        setIsFieldsDisabled(true);
+      }
+    } else {
+      setIsFieldsDisabled(false);
+    }
+  }, [availableStatus, gearHistory, setValue]);
 
   const selectedFio = watch('fio');
   const selectedNumber = watch('employee_number');
@@ -177,12 +191,14 @@ const StatusChangeModal = ({ handleSnackbar, handleClose, selectedGear, availabl
               name="fio"
               label="ФИО"
               requiredText="ФИО должно быть заполнено"
+              disabled={isFieldsDisabled}
               options={fioOptions}
             />
             <StyledSelectField
               name="employee_number"
               label="Табельный номер"
               requiredText="Табельный номер должен быть выбран"
+              disabled={isFieldsDisabled}
               options={employeeOptions}
             />
           </Form>
